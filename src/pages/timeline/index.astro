@@ -23,11 +23,17 @@ const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
   <ClayCard tone="plain" class="filter-panel">
     <input class="search-box" type="search" placeholder="Filter posts by title, summary, source, or tag" data-filter-search />
     <div class="filter-row" aria-label="Timeline filters">
-      <button type="button" data-filter="all">All</button>
-      {sources.map((source) => <button type="button" data-filter-source={source}>{source}</button>)}
-      {years.map((year) => <button type="button" data-filter-year={year}>{year}</button>)}
-      {tags.slice(0, 8).map((tag) => <button type="button" data-filter-tag={tag}>{tag}</button>)}
+      <button type="button" data-filter="all" aria-pressed="true">All</button>
+      {sources.map((source) => <button type="button" data-filter-source={source} aria-pressed="false">{source}</button>)}
+      {years.map((year) => <button type="button" data-filter-year={year} aria-pressed="false">{year}</button>)}
+      {tags.slice(0, 8).map((tag) => <button type="button" data-filter-tag={tag} aria-pressed="false">{tag}</button>)}
     </div>
+    <p class="filter-summary" data-filter-count aria-live="polite">{posts.length} posts shown</p>
+  </ClayCard>
+
+  <ClayCard tone="plain" class="empty-state" data-empty-state hidden>
+    <h2>No matching posts yet</h2>
+    <p>Clear a filter or try a broader search term.</p>
   </ClayCard>
 
   <section class="timeline-list" data-filter-list>
@@ -59,21 +65,49 @@ const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
   <script>
     const search = document.querySelector("[data-filter-search]");
     const items = [...document.querySelectorAll(".timeline-item")];
+    const filterCount = document.querySelector("[data-filter-count]");
+    const emptyState = document.querySelector("[data-empty-state]");
+    const allButton = document.querySelector("[data-filter='all']");
+    const sourceButtons = [...document.querySelectorAll("[data-filter-source]")];
+    const yearButtons = [...document.querySelectorAll("[data-filter-year]")];
+    const tagButtons = [...document.querySelectorAll("[data-filter-tag]")];
     let active = { source: "", year: "", tag: "" };
 
-    function applyFilters() {
-      const query = search instanceof HTMLInputElement ? search.value.toLowerCase() : "";
-      items.forEach((item) => {
-        if (!(item instanceof HTMLElement)) return;
-        const matchesQuery = item.dataset.search?.toLowerCase().includes(query);
-        const matchesSource = !active.source || item.dataset.source === active.source;
-        const matchesYear = !active.year || item.dataset.year === active.year;
-        const matchesTag = !active.tag || item.dataset.tags?.includes(active.tag);
-        item.hidden = !(matchesQuery && matchesSource && matchesYear && matchesTag);
+    function setPressed(buttons, matcher) {
+      buttons.forEach((button) => {
+        if (!(button instanceof HTMLElement)) return;
+        button.setAttribute("aria-pressed", matcher(button) ? "true" : "false");
       });
     }
 
-    document.querySelectorAll("[data-filter-source]").forEach((button) => {
+    function updateFilterButtons() {
+      const hasActiveFilter = Boolean(active.source || active.year || active.tag);
+      if (allButton instanceof HTMLElement) allButton.setAttribute("aria-pressed", hasActiveFilter ? "false" : "true");
+      setPressed(sourceButtons, (button) => button.dataset.filterSource === active.source);
+      setPressed(yearButtons, (button) => button.dataset.filterYear === active.year);
+      setPressed(tagButtons, (button) => button.dataset.filterTag === active.tag);
+    }
+
+    function applyFilters() {
+      const query = search instanceof HTMLInputElement ? search.value.toLowerCase() : "";
+      let visibleCount = 0;
+      items.forEach((item) => {
+        if (!(item instanceof HTMLElement)) return;
+        const searchable = item.dataset.search?.toLowerCase() || "";
+        const matchesQuery = !query || searchable.includes(query);
+        const matchesSource = !active.source || item.dataset.source === active.source;
+        const matchesYear = !active.year || item.dataset.year === active.year;
+        const matchesTag = !active.tag || item.dataset.tags?.includes(active.tag);
+        const isVisible = Boolean(matchesQuery && matchesSource && matchesYear && matchesTag);
+        item.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+      if (filterCount) filterCount.textContent = `${visibleCount} ${visibleCount === 1 ? "post" : "posts"} shown`;
+      if (emptyState instanceof HTMLElement) emptyState.hidden = visibleCount !== 0;
+      updateFilterButtons();
+    }
+
+    sourceButtons.forEach((button) => {
       button.addEventListener("click", () => {
         if (!(button instanceof HTMLElement)) return;
         active.source = active.source === button.dataset.filterSource ? "" : button.dataset.filterSource || "";
@@ -81,7 +115,7 @@ const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
       });
     });
 
-    document.querySelectorAll("[data-filter-year]").forEach((button) => {
+    yearButtons.forEach((button) => {
       button.addEventListener("click", () => {
         if (!(button instanceof HTMLElement)) return;
         active.year = active.year === button.dataset.filterYear ? "" : button.dataset.filterYear || "";
@@ -89,7 +123,7 @@ const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
       });
     });
 
-    document.querySelectorAll("[data-filter-tag]").forEach((button) => {
+    tagButtons.forEach((button) => {
       button.addEventListener("click", () => {
         if (!(button instanceof HTMLElement)) return;
         active.tag = active.tag === button.dataset.filterTag ? "" : button.dataset.filterTag || "";
@@ -97,12 +131,13 @@ const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
       });
     });
 
-    document.querySelector("[data-filter='all']")?.addEventListener("click", () => {
+    allButton?.addEventListener("click", () => {
       active = { source: "", year: "", tag: "" };
       if (search instanceof HTMLInputElement) search.value = "";
       applyFilters();
     });
 
     search?.addEventListener("input", applyFilters);
+    applyFilters();
   </script>
 </BaseLayout>

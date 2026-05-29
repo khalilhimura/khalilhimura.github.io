@@ -1,20 +1,31 @@
 ---
-const links = [
+const primaryLinks = [
   { href: "/", label: "Home" },
   { href: "/profile/", label: "Profile" },
   { href: "/portfolio/", label: "Portfolio" },
   { href: "/timeline/", label: "Timeline" },
-  { href: "/blog/", label: "Blog" },
-  { href: "/media/", label: "Media" },
   { href: "/search/", label: "Search" }
 ];
+
+const secondaryLinks = [
+  { href: "/blog/", label: "Blog" },
+  { href: "/media/", label: "Media" }
+];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => href === "/" ? currentPath === "/" : currentPath.startsWith(href);
 ---
 
 <header class="site-header">
   <a class="brand-mark" href="/" aria-label="Khalil Nooh home">
     <span>KN</span>
   </a>
-  <nav aria-label="Primary navigation">
-    {links.map((link) => <a href={link.href}>{link.label}</a>)}
-  </nav>
+  <div class="nav-cluster">
+    <nav aria-label="Primary navigation">
+      {primaryLinks.map((link) => <a href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>{link.label}</a>)}
+    </nav>
+    <nav class="secondary-nav" aria-label="Secondary navigation">
+      {secondaryLinks.map((link) => <a class="more-link" href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>{link.label}</a>)}
+    </nav>
+  </div>
 </header>
