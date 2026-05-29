@@ -19,6 +19,7 @@ test("homepage leads with a clearer editorial portfolio promise", async () => {
   assert.match(home, /source-linked operating record for founder work/i);
   assert.match(home, /Start with the proof/i);
   assert.match(home, /proof-strip/);
+  assert.match(home, /class="proof-strip" role="region" aria-label="Site coverage"/);
 });
 
 test("timeline filters expose active state, result count, and empty state", async () => {
@@ -52,6 +53,7 @@ test("search page gives useful starting routes before the search box", async () 
   const search = await read("src/pages/search/index.astro");
 
   assert.match(search, /search-shortcuts/);
+  assert.match(search, /class="search-shortcuts" role="navigation" aria-label="Suggested search routes"/);
   assert.match(search, /Browse projects/);
   assert.match(search, /Open timeline/);
 });
