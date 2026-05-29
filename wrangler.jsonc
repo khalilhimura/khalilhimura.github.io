@@ -2,6 +2,16 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "khalilnooh-com",
   "compatibility_date": "2026-05-29",
+  "routes": [
+    {
+      "pattern": "khalilnooh.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.khalilnooh.com",
+      "custom_domain": true
+    }
+  ],
   "observability": {
     "enabled": true
   },
