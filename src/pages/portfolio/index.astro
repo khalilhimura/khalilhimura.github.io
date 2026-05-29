@@ -18,17 +18,19 @@ const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
 
   <section class="grid two">
     {projects.map((project, index) => (
-      <ClayCard tone={tones[index % tones.length]} id={project.id}>
+      <ClayCard tone={tones[index % tones.length]} id={project.id} class="project-card">
+        <p class="project-kicker">{project.data.role} · {project.data.dates}</p>
         <h2>{project.data.title}</h2>
-        <p><strong>{project.data.role}</strong> · {project.data.dates}</p>
         <p>{project.data.description}</p>
         <div class="prose">
+          <h3>Outcomes</h3>
           <ul>
             {project.data.outcomes.map((outcome) => <li>{outcome}</li>)}
           </ul>
         </div>
         <div class="tag-row">{project.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
         <div class="tag-row">
+          <span class="tag evidence-label">Evidence</span>
           {project.data.links.map((link) => <a class="button" href={link.url}>{link.label}</a>)}
         </div>
       </ClayCard>

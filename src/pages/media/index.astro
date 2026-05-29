@@ -19,9 +19,15 @@ const sources = uniqueSorted(media.map((item) => item.data.source));
 
   <ClayCard tone="plain" class="filter-panel">
     <div class="filter-row">
-      <button type="button" data-media-filter="all">All</button>
-      {sources.map((source) => <button type="button" data-media-source={source}>{source}</button>)}
+      <button type="button" data-media-filter="all" aria-pressed="true">All</button>
+      {sources.map((source) => <button type="button" data-media-source={source} aria-pressed="false">{source}</button>)}
     </div>
+    <p class="filter-summary" data-media-count aria-live="polite">{media.length} media items shown</p>
+  </ClayCard>
+
+  <ClayCard tone="plain" class="empty-state" data-empty-state hidden>
+    <h2>No matching media yet</h2>
+    <p>Clear the source filter to bring the full media library back.</p>
   </ClayCard>
 
   <section class="grid two">
@@ -41,21 +47,41 @@ const sources = uniqueSorted(media.map((item) => item.data.source));
 
   <script>
     const mediaItems = [...document.querySelectorAll(".media-item")];
-    document.querySelectorAll("[data-media-source]").forEach((button) => {
-      button.addEventListener("click", () => {
-        if (!(button instanceof HTMLElement)) return;
-        const source = button.dataset.mediaSource;
-        mediaItems.forEach((item) => {
-          if (!(item instanceof HTMLElement)) return;
-          item.hidden = item.dataset.source !== source;
-        });
-      });
-    });
-    document.querySelector("[data-media-filter='all']")?.addEventListener("click", () => {
+    const mediaCount = document.querySelector("[data-media-count]");
+    const mediaEmptyState = document.querySelector("[data-empty-state]");
+    const mediaAllButton = document.querySelector("[data-media-filter='all']");
+    const mediaSourceButtons = [...document.querySelectorAll("[data-media-source]")];
+    let activeSource = "";
+
+    function applyMediaFilter() {
+      let visibleCount = 0;
       mediaItems.forEach((item) => {
         if (!(item instanceof HTMLElement)) return;
-        item.hidden = false;
+        const isVisible = !activeSource || item.dataset.source === activeSource;
+        item.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      if (mediaCount) mediaCount.textContent = `${visibleCount} ${visibleCount === 1 ? "media item" : "media items"} shown`;
+      if (mediaEmptyState instanceof HTMLElement) mediaEmptyState.hidden = visibleCount !== 0;
+      if (mediaAllButton instanceof HTMLElement) mediaAllButton.setAttribute("aria-pressed", activeSource ? "false" : "true");
+      mediaSourceButtons.forEach((button) => {
+        if (!(button instanceof HTMLElement)) return;
+        button.setAttribute("aria-pressed", button.dataset.mediaSource === activeSource ? "true" : "false");
+      });
+    }
+
+    mediaSourceButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!(button instanceof HTMLElement)) return;
+        activeSource = activeSource === button.dataset.mediaSource ? "" : button.dataset.mediaSource || "";
+        applyMediaFilter();
       });
     });
+    mediaAllButton?.addEventListener("click", () => {
+      activeSource = "";
+      applyMediaFilter();
+    });
+    applyMediaFilter();
   </script>
 </BaseLayout>
