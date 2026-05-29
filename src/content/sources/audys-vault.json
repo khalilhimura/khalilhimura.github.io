@@ -1,0 +1,7 @@
+{
+  "platform": "Audy's Vault",
+  "profileUrl": "https://audysvault.example.com/khalil-nooh",
+  "crawlStrategy": "adapter",
+  "enabled": false,
+  "lastCrawledAt": null
+}

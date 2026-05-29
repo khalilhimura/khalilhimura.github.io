@@ -1,0 +1,7 @@
+{
+  "platform": "Facebook",
+  "profileUrl": "https://www.facebook.com/khalilnooh",
+  "crawlStrategy": "profile",
+  "enabled": true,
+  "lastCrawledAt": null
+}

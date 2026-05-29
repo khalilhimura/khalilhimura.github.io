@@ -1,0 +1,48 @@
+---
+import SiteNav from "@components/SiteNav.astro";
+import "@styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Khalil Nooh's public profile, portfolio, media, and public-posting timeline."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#fff1f2" />
+    <link rel="alternate" type="application/rss+xml" title="Khalil Nooh timeline" href="/rss.xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="page-shell">
+      <SiteNav />
+      <main data-pagefind-body>
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <div>
+          <strong>Khalil Nooh</strong>
+          <p>Public profile, portfolio, media, and source-linked timeline.</p>
+        </div>
+        <div class="footer-links">
+          <a href="/timeline/">Timeline</a>
+          <a href="/rss.xml">RSS</a>
+          <a href="mailto:hello@khalilnooh.com">Contact</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

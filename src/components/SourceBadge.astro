@@ -1,0 +1,13 @@
+---
+interface Props {
+  source: string;
+  status?: string;
+}
+
+const { source, status } = Astro.props;
+---
+
+<span class="source-badge" data-source={source.toLowerCase()}>
+  <span>{source}</span>
+  {status && <small>{status}</small>}
+</span>

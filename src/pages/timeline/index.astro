@@ -1,0 +1,108 @@
+---
+import ClayCard from "@components/ClayCard.astro";
+import SourceBadge from "@components/SourceBadge.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { formatDate, getPublishedPosts, getYear, uniqueSorted } from "@lib/content";
+
+const posts = await getPublishedPosts();
+const sources = uniqueSorted(posts.map((post) => post.data.source));
+const years = uniqueSorted(posts.map((post) => getYear(post.data.publishedAt))).reverse();
+const tags = uniqueSorted(posts.flatMap((post) => post.data.tags));
+const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
+---
+
+<BaseLayout title="Timeline | Khalil Nooh">
+  <section class="section-heading">
+    <div>
+      <span class="eyebrow">Public timeline</span>
+      <h1>All public postings</h1>
+    </div>
+    <p>Search and filter source-linked posts from public profiles, source stubs, and future Audy's Vault imports.</p>
+  </section>
+
+  <ClayCard tone="plain" class="filter-panel">
+    <input class="search-box" type="search" placeholder="Filter posts by title, summary, source, or tag" data-filter-search />
+    <div class="filter-row" aria-label="Timeline filters">
+      <button type="button" data-filter="all">All</button>
+      {sources.map((source) => <button type="button" data-filter-source={source}>{source}</button>)}
+      {years.map((year) => <button type="button" data-filter-year={year}>{year}</button>)}
+      {tags.slice(0, 8).map((tag) => <button type="button" data-filter-tag={tag}>{tag}</button>)}
+    </div>
+  </ClayCard>
+
+  <section class="timeline-list" data-filter-list>
+    {posts.map((post, index) => (
+      <ClayCard
+        tone={tones[index % tones.length]}
+        href={`/timeline/${post.slug}/`}
+        class="timeline-item"
+        data-source={post.data.source}
+        data-year={getYear(post.data.publishedAt)}
+        data-tags={post.data.tags.join(" ")}
+        data-search={`${post.data.title} ${post.data.summary} ${post.data.source} ${post.data.tags.join(" ")}`}
+      >
+        <div class="timeline-card">
+          <div>
+            <p class="timeline-date">{formatDate(post.data.publishedAt)}</p>
+            <SourceBadge source={post.data.source} status={post.data.crawlStatus} />
+          </div>
+          <div>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.summary}</p>
+            <div class="tag-row">{post.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+          </div>
+        </div>
+      </ClayCard>
+    ))}
+  </section>
+
+  <script>
+    const search = document.querySelector("[data-filter-search]");
+    const items = [...document.querySelectorAll(".timeline-item")];
+    let active = { source: "", year: "", tag: "" };
+
+    function applyFilters() {
+      const query = search instanceof HTMLInputElement ? search.value.toLowerCase() : "";
+      items.forEach((item) => {
+        if (!(item instanceof HTMLElement)) return;
+        const matchesQuery = item.dataset.search?.toLowerCase().includes(query);
+        const matchesSource = !active.source || item.dataset.source === active.source;
+        const matchesYear = !active.year || item.dataset.year === active.year;
+        const matchesTag = !active.tag || item.dataset.tags?.includes(active.tag);
+        item.hidden = !(matchesQuery && matchesSource && matchesYear && matchesTag);
+      });
+    }
+
+    document.querySelectorAll("[data-filter-source]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!(button instanceof HTMLElement)) return;
+        active.source = active.source === button.dataset.filterSource ? "" : button.dataset.filterSource || "";
+        applyFilters();
+      });
+    });
+
+    document.querySelectorAll("[data-filter-year]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!(button instanceof HTMLElement)) return;
+        active.year = active.year === button.dataset.filterYear ? "" : button.dataset.filterYear || "";
+        applyFilters();
+      });
+    });
+
+    document.querySelectorAll("[data-filter-tag]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!(button instanceof HTMLElement)) return;
+        active.tag = active.tag === button.dataset.filterTag ? "" : button.dataset.filterTag || "";
+        applyFilters();
+      });
+    });
+
+    document.querySelector("[data-filter='all']")?.addEventListener("click", () => {
+      active = { source: "", year: "", tag: "" };
+      if (search instanceof HTMLInputElement) search.value = "";
+      applyFilters();
+    });
+
+    search?.addEventListener("input", applyFilters);
+  </script>
+</BaseLayout>

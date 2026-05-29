@@ -1,0 +1,106 @@
+---
+import ClayCard from "@components/ClayCard.astro";
+import SourceBadge from "@components/SourceBadge.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { formatDate, getMediaItems, getProjects, getPublishedPosts } from "@lib/content";
+
+const posts = await getPublishedPosts();
+const projects = await getProjects();
+const media = await getMediaItems();
+const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
+---
+
+<BaseLayout title="Khalil Nooh | Profile, Portfolio, Timeline">
+  <section class="hero">
+    <ClayCard tone="peach">
+      <span class="eyebrow">Professional profile and public record</span>
+      <h1>Khalil Nooh</h1>
+      <p class="lead">
+        A vibrant, source-linked home for portfolio work, public postings, media, and the thinking trail behind the work.
+      </p>
+      <div class="tag-row">
+        <a class="button primary" href="/timeline/">Explore timeline</a>
+        <a class="button" href="/portfolio/">View portfolio</a>
+      </div>
+    </ClayCard>
+
+    <ClayCard tone="cyan">
+      <h2>Public signals, neatly gathered.</h2>
+      <p>
+        Posts from LinkedIn, Facebook, Audy's Vault, and future sources become searchable timeline entries with attribution, media, and review status.
+      </p>
+      <div class="tag-row">
+        <span class="tag">Profile crawl</span>
+        <span class="tag">Media mirror</span>
+        <span class="tag">Source stubs</span>
+      </div>
+    </ClayCard>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Featured work</span>
+        <h2>Portfolio</h2>
+      </div>
+      <a class="button" href="/portfolio/">All projects</a>
+    </div>
+    <div class="grid">
+      {projects.slice(0, 3).map((project, index) => (
+        <ClayCard tone={tones[index % tones.length]} href={`/portfolio/#${project.id}`}>
+          <h3>{project.data.title}</h3>
+          <p>{project.data.description}</p>
+          <div class="tag-row">{project.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+        </ClayCard>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Latest public posts</span>
+        <h2>Timeline</h2>
+      </div>
+      <a class="button" href="/timeline/">Open archive</a>
+    </div>
+    <div class="timeline-list">
+      {posts.slice(0, 3).map((post, index) => (
+        <ClayCard tone={tones[(index + 2) % tones.length]} href={`/timeline/${post.slug}/`}>
+          <div class="timeline-card">
+            <div>
+              <p class="timeline-date">{formatDate(post.data.publishedAt)}</p>
+              <SourceBadge source={post.data.source} status={post.data.crawlStatus} />
+            </div>
+            <div>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.summary}</p>
+              <div class="tag-row">{post.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+            </div>
+          </div>
+        </ClayCard>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Media</span>
+        <h2>Mirrored highlights</h2>
+      </div>
+      <a class="button" href="/media/">Media library</a>
+    </div>
+    <div class="grid two">
+      {media.slice(0, 2).map((item, index) => (
+        <ClayCard tone={tones[(index + 4) % tones.length]} href="/media/" class="media-tile">
+          {item.data.localPath ? <img src={item.data.localPath} alt={item.data.title} /> : <div class="media-preview">{item.data.type}</div>}
+          <div>
+            <h3>{item.data.title}</h3>
+            <p>{item.data.attribution}</p>
+          </div>
+        </ClayCard>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

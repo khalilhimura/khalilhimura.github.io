@@ -1,0 +1,16 @@
+---
+interface Props {
+  tone?: "rose" | "indigo" | "cyan" | "mint" | "peach" | "orange" | "plain";
+  href?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { tone = "plain", href, class: className = "" } = Astro.props;
+const { tone: _tone, href: _href, class: _class, ...rest } = Astro.props;
+const Tag = href ? "a" : "article";
+---
+
+<Tag href={href} {...rest} class:list={["clay-card", `tone-${tone}`, className]}>
+  <slot />
+</Tag>

@@ -1,0 +1,7 @@
+{
+  "platform": "LinkedIn",
+  "profileUrl": "https://www.linkedin.com/in/khalilnooh/",
+  "crawlStrategy": "profile",
+  "enabled": true,
+  "lastCrawledAt": null
+}

@@ -1,0 +1,61 @@
+---
+import ClayCard from "@components/ClayCard.astro";
+import SourceBadge from "@components/SourceBadge.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { formatDate, getMediaItems, uniqueSorted } from "@lib/content";
+
+const media = await getMediaItems();
+const sources = uniqueSorted(media.map((item) => item.data.source));
+---
+
+<BaseLayout title="Media | Khalil Nooh">
+  <section class="section-heading">
+    <div>
+      <span class="eyebrow">Media</span>
+      <h1>Mirrored public media</h1>
+    </div>
+    <p>Public media is mirrored for durability while retaining original links and attribution.</p>
+  </section>
+
+  <ClayCard tone="plain" class="filter-panel">
+    <div class="filter-row">
+      <button type="button" data-media-filter="all">All</button>
+      {sources.map((source) => <button type="button" data-media-source={source}>{source}</button>)}
+    </div>
+  </ClayCard>
+
+  <section class="grid two">
+    {media.map((item, index) => (
+      <ClayCard tone={index % 2 === 0 ? "orange" : "cyan"} class="media-tile media-item" data-source={item.data.source}>
+        {item.data.localPath ? <img src={item.data.localPath} alt={item.data.title} /> : <div class="media-preview">{item.data.type}</div>}
+        <div>
+          <SourceBadge source={item.data.source} />
+          <h2>{item.data.title}</h2>
+          <p>{item.data.attribution}</p>
+          <p><strong>{formatDate(item.data.capturedAt)}</strong></p>
+          <a class="button" href={item.data.originalUrl}>Original media</a>
+        </div>
+      </ClayCard>
+    ))}
+  </section>
+
+  <script>
+    const mediaItems = [...document.querySelectorAll(".media-item")];
+    document.querySelectorAll("[data-media-source]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!(button instanceof HTMLElement)) return;
+        const source = button.dataset.mediaSource;
+        mediaItems.forEach((item) => {
+          if (!(item instanceof HTMLElement)) return;
+          item.hidden = item.dataset.source !== source;
+        });
+      });
+    });
+    document.querySelector("[data-media-filter='all']")?.addEventListener("click", () => {
+      mediaItems.forEach((item) => {
+        if (!(item instanceof HTMLElement)) return;
+        item.hidden = false;
+      });
+    });
+  </script>
+</BaseLayout>

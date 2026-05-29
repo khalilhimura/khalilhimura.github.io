@@ -1,0 +1,34 @@
+---
+import ClayCard from "@components/ClayCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Search | Khalil Nooh">
+  <section class="content-page">
+    <ClayCard tone="indigo">
+      <span class="eyebrow">Search</span>
+      <h1>Find the trail</h1>
+      <p class="lead">Search across profile pages, portfolio work, public posts, expanded blog notes, and mirrored media captions.</p>
+    </ClayCard>
+    <ClayCard tone="plain">
+      <div id="search"></div>
+      <noscript>
+        <p>Search requires JavaScript. Browse the timeline, blog, portfolio, or media pages directly.</p>
+      </noscript>
+    </ClayCard>
+  </section>
+
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <script src="/pagefind/pagefind-ui.js" is:inline></script>
+  <script is:inline>
+    window.addEventListener("DOMContentLoaded", () => {
+      if (window.PagefindUI) {
+        new window.PagefindUI({
+          element: "#search",
+          showSubResults: true,
+          pageSize: 8
+        });
+      }
+    });
+  </script>
+</BaseLayout>

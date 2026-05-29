@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="title desc">
+  <title id="title">Studio note placeholder</title>
+  <desc id="desc">A vibrant claymorphism placeholder for mirrored public media.</desc>
+  <rect width="900" height="560" rx="46" fill="#dcdcff"/>
+  <circle cx="170" cy="130" r="96" fill="#ffb199"/>
+  <circle cx="720" cy="150" r="118" fill="#c7f7ff"/>
+  <rect x="118" y="188" width="664" height="254" rx="40" fill="#fff8ed" stroke="#25142f" stroke-width="8"/>
+  <path d="M190 292h330M190 348h220" stroke="#25142f" stroke-width="18" stroke-linecap="round"/>
+  <path d="M612 260l72 72-72 72" fill="none" stroke="#5b5eea" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

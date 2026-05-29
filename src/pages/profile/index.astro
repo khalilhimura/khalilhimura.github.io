@@ -1,0 +1,40 @@
+---
+import ClayCard from "@components/ClayCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Profile | Khalil Nooh">
+  <section class="content-page">
+    <ClayCard tone="indigo">
+      <span class="eyebrow">Profile</span>
+      <h1>Khalil Nooh</h1>
+      <p class="lead">
+        A professional public profile shaped around portfolio proof, public thinking, media, and source-linked updates.
+      </p>
+    </ClayCard>
+
+    <ClayCard tone="mint">
+      <h2>What this profile collects</h2>
+      <p>
+        This site is designed to become the canonical public record for Khalil's work: selected projects, source-linked posts, mirrored public media, and longer reflections generated from the public timeline.
+      </p>
+      <div class="tag-row">
+        <span class="tag">Strategy</span>
+        <span class="tag">Portfolio</span>
+        <span class="tag">Public writing</span>
+        <span class="tag">Media</span>
+      </div>
+    </ClayCard>
+
+    <ClayCard tone="peach">
+      <h2>Contact and sources</h2>
+      <p>
+        Add preferred contact channels and verified social links here. Public sources can be connected through the source configuration and crawler workflow.
+      </p>
+      <div class="tag-row">
+        <a class="button primary" href="mailto:hello@khalilnooh.com">Email</a>
+        <a class="button" href="/timeline/">Public timeline</a>
+      </div>
+    </ClayCard>
+  </section>
+</BaseLayout>

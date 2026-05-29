@@ -1,0 +1,37 @@
+---
+import ClayCard from "@components/ClayCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getProjects } from "@lib/content";
+
+const projects = await getProjects();
+const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
+---
+
+<BaseLayout title="Portfolio | Khalil Nooh">
+  <section class="section-heading">
+    <div>
+      <span class="eyebrow">Portfolio</span>
+      <h1>Selected work</h1>
+    </div>
+    <p>Clay cards for projects, outcomes, links, and evidence that can grow as more public work is added.</p>
+  </section>
+
+  <section class="grid two">
+    {projects.map((project, index) => (
+      <ClayCard tone={tones[index % tones.length]} id={project.id}>
+        <h2>{project.data.title}</h2>
+        <p><strong>{project.data.role}</strong> · {project.data.dates}</p>
+        <p>{project.data.description}</p>
+        <div class="prose">
+          <ul>
+            {project.data.outcomes.map((outcome) => <li>{outcome}</li>)}
+          </ul>
+        </div>
+        <div class="tag-row">{project.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+        <div class="tag-row">
+          {project.data.links.map((link) => <a class="button" href={link.url}>{link.label}</a>)}
+        </div>
+      </ClayCard>
+    ))}
+  </section>
+</BaseLayout>

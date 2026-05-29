@@ -1,0 +1,31 @@
+---
+import ClayCard from "@components/ClayCard.astro";
+import SourceBadge from "@components/SourceBadge.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import { formatDate } from "@lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={`${post.data.title} | Timeline`}>
+  <article class="content-page">
+    <ClayCard tone="cyan">
+      <SourceBadge source={post.data.source} status={post.data.crawlStatus} />
+      <h1>{post.data.title}</h1>
+      <p class="lead">{post.data.summary}</p>
+      <p><strong>{formatDate(post.data.publishedAt)}</strong></p>
+      <div class="tag-row">{post.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+      <a class="button primary" href={post.data.sourceUrl}>Original source</a>
+    </ClayCard>
+    <ClayCard tone="plain" class="prose">
+      <Content />
+    </ClayCard>
+  </article>
+</BaseLayout>

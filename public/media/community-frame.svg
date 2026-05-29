@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" role="img" aria-labelledby="title desc">
+  <title id="title">Community frame placeholder</title>
+  <desc id="desc">A colorful placeholder for public community media.</desc>
+  <rect width="900" height="560" rx="46" fill="#ffe2d3"/>
+  <rect x="96" y="90" width="708" height="380" rx="52" fill="#d7ffea" stroke="#25142f" stroke-width="8"/>
+  <circle cx="272" cy="272" r="82" fill="#ff6f91" stroke="#25142f" stroke-width="8"/>
+  <circle cx="450" cy="272" r="82" fill="#00b8d9" stroke="#25142f" stroke-width="8"/>
+  <circle cx="628" cy="272" r="82" fill="#ff9f1c" stroke="#25142f" stroke-width="8"/>
+  <path d="M230 382h440" stroke="#25142f" stroke-width="18" stroke-linecap="round"/>
+</svg>

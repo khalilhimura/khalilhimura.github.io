@@ -1,0 +1,20 @@
+---
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/profile/", label: "Profile" },
+  { href: "/portfolio/", label: "Portfolio" },
+  { href: "/timeline/", label: "Timeline" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/media/", label: "Media" },
+  { href: "/search/", label: "Search" }
+];
+---
+
+<header class="site-header">
+  <a class="brand-mark" href="/" aria-label="Khalil Nooh home">
+    <span>KN</span>
+  </a>
+  <nav aria-label="Primary navigation">
+    {links.map((link) => <a href={link.href}>{link.label}</a>)}
+  </nav>
+</header>

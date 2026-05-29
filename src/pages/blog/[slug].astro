@@ -1,0 +1,29 @@
+---
+import ClayCard from "@components/ClayCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import { formatDate } from "@lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={`${post.data.title} | Blog`}>
+  <article class="content-page">
+    <ClayCard tone="peach">
+      <span class="eyebrow">Expanded from {post.data.source}</span>
+      <h1>{post.data.title}</h1>
+      <p class="lead">{post.data.summary}</p>
+      <p><strong>{formatDate(post.data.publishedAt)}</strong></p>
+    </ClayCard>
+    <ClayCard tone="plain" class="prose">
+      <Content />
+      <p><a class="button primary" href={post.data.sourceUrl}>Read original source</a></p>
+    </ClayCard>
+  </article>
+</BaseLayout>

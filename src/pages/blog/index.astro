@@ -1,0 +1,28 @@
+---
+import ClayCard from "@components/ClayCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { formatDate, getPublishedPosts } from "@lib/content";
+
+const posts = await getPublishedPosts();
+---
+
+<BaseLayout title="Blog | Khalil Nooh">
+  <section class="section-heading">
+    <div>
+      <span class="eyebrow">Blog</span>
+      <h1>Expanded notes</h1>
+    </div>
+    <p>Selected public timeline entries can become longer essays while staying linked to the original source.</p>
+  </section>
+
+  <section class="grid">
+    {posts.map((post, index) => (
+      <ClayCard tone={index % 2 === 0 ? "rose" : "mint"} href={`/blog/${post.slug}/`}>
+        <p class="timeline-date">{formatDate(post.data.publishedAt)}</p>
+        <h2>{post.data.title}</h2>
+        <p>{post.data.summary}</p>
+        <div class="tag-row">{post.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
+      </ClayCard>
+    ))}
+  </section>
+</BaseLayout>
