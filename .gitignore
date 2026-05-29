@@ -5,3 +5,10 @@ dist/
 .codex/
 .DS_Store
 npm-debug.log*
+
+# Wrangler and local environment files
+.wrangler/
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example

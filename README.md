@@ -19,3 +19,7 @@ npm run crawl:dry
 - `src/content/sources` stores public source configuration.
 
 The crawler creates reviewable drafts or source stubs. It does not use authenticated scraping.
+
+## Deployment
+
+Pushes to `master` build the Astro site and deploy the generated `dist/` artifact to GitHub Pages.
