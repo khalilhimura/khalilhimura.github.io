@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "test": "node --test tests/*.test.mjs",
-    "build": "astro build && pagefind --site dist",
+    "build": "astro build && pagefind --site dist && node scripts/prepare-cloudflare-preview-config.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "deploy": "npm run build && wrangler deploy",
