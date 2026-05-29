@@ -8,6 +8,8 @@
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "check": "astro check",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:dry": "npm run build && wrangler deploy --dry-run",
     "crawl": "node scripts/crawl-public-sources.mjs",
     "crawl:dry": "node scripts/crawl-public-sources.mjs --dry-run"
   },
@@ -20,5 +22,7 @@
     "tailwindcss": "^4.1.8",
     "typescript": "^5.8.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "wrangler": "^4.95.0"
+  }
 }
