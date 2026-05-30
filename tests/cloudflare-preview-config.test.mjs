@@ -55,6 +55,7 @@ test("writes Wrangler redirect metadata for generated preview config", async () 
     assert.deepEqual(redirect, { configPath: "../generated/preview-wrangler.json" });
     assert.equal(generated.name, "khalilnooh-com");
     assert.equal(generated.workers_dev, true);
+    assert.equal(generated.assets.directory, "../../dist");
   } finally {
     await rm(root, { force: true, recursive: true });
   }

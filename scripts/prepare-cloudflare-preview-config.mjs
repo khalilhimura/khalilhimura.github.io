@@ -17,13 +17,26 @@ export function createPreviewConfig(config) {
   };
 }
 
+function rebaseAssetsDirectoryForGeneratedConfig(previewConfig) {
+  if (!previewConfig.assets?.directory) return previewConfig;
+
+  return {
+    ...previewConfig,
+    assets: {
+      ...previewConfig.assets,
+      directory: previewConfig.assets.directory === "./dist" ? "../../dist" : previewConfig.assets.directory
+    }
+  };
+}
+
 export async function writeGeneratedConfig(rootDir, previewConfig) {
   const generatedConfigPath = join(rootDir, ".wrangler/generated/preview-wrangler.json");
   const redirectPath = join(rootDir, ".wrangler/deploy/config.json");
+  const generatedConfig = rebaseAssetsDirectoryForGeneratedConfig(previewConfig);
 
   await mkdir(dirname(generatedConfigPath), { recursive: true });
   await mkdir(dirname(redirectPath), { recursive: true });
-  await writeFile(generatedConfigPath, `${JSON.stringify(previewConfig, null, 2)}\n`);
+  await writeFile(generatedConfigPath, `${JSON.stringify(generatedConfig, null, 2)}\n`);
   await writeFile(redirectPath, `${JSON.stringify({ configPath: "../generated/preview-wrangler.json" }, null, 2)}\n`);
 }
 
