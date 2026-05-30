@@ -57,7 +57,8 @@ a {
 
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+summary:focus-visible {
   outline: 4px solid rgba(91, 94, 234, 0.38);
   outline-offset: 4px;
 }
@@ -117,6 +118,76 @@ nav {
 
 .secondary-nav {
   opacity: 0.82;
+}
+
+.mobile-nav {
+  display: none;
+  position: relative;
+}
+
+.menu-toggle {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 3px solid var(--border);
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 4px 5px 0 rgba(37, 20, 47, 0.13), inset -2px -2px 7px rgba(37, 20, 47, 0.08);
+  cursor: pointer;
+  font-weight: 900;
+  list-style: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.menu-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.menu-icon {
+  display: grid;
+  width: 18px;
+  gap: 4px;
+}
+
+.menu-icon span {
+  display: block;
+  height: 3px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.mobile-nav[open] .menu-toggle {
+  background: var(--indigo);
+  color: #ffffff;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 3px 0 rgba(37, 20, 47, 0.18), inset -2px -2px 7px rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 20;
+  display: grid;
+  width: min(78vw, 320px);
+  gap: 10px;
+  padding: 12px;
+  border: 3px solid var(--border);
+  border-radius: 22px;
+  background: rgba(255, 253, 250, 0.97);
+  box-shadow: var(--shadow-hover);
+}
+
+.mobile-nav-panel nav {
+  display: grid;
+  justify-content: stretch;
+}
+
+.mobile-nav-panel nav a {
+  justify-content: flex-start;
+  width: 100%;
 }
 
 nav a,
@@ -505,12 +576,21 @@ a.clay-card:hover {
     flex-direction: column;
   }
 
+  .site-header {
+    align-items: center;
+    flex-direction: row;
+  }
+
   nav {
     justify-content: flex-start;
   }
 
   .nav-cluster {
-    justify-content: flex-start;
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
   }
 
   .proof-strip {

@@ -13,6 +13,21 @@ test("site navigation is simplified and marks the current page", async () => {
   assert.doesNotMatch(nav, /label: "Blog" },\n  \{ href: "\/media\/", label: "Media" },\n  \{ href: "\/search\/", label: "Search" \}/);
 });
 
+test("site navigation collapses into a mobile hamburger menu", async () => {
+  const nav = await read("src/components/SiteNav.astro");
+  const css = await read("src/styles/global.css");
+
+  assert.match(nav, /<details class="mobile-nav">/);
+  assert.match(nav, /<summary class="menu-toggle" aria-label="Toggle navigation menu">/);
+  assert.match(nav, /class="menu-icon" aria-hidden="true"/);
+  assert.match(nav, /aria-label="Mobile primary navigation"/);
+  assert.match(nav, /aria-label="Mobile secondary navigation"/);
+  assert.match(css, /\.mobile-nav\s*{\s*display: none;/);
+  assert.match(css, /@media \(max-width: 860px\)[\s\S]*\.nav-cluster\s*{\s*display: none;/);
+  assert.match(css, /@media \(max-width: 860px\)[\s\S]*\.mobile-nav\s*{\s*display: block;/);
+  assert.match(css, /min-height: 48px/);
+});
+
 test("homepage leads with a clearer editorial portfolio promise", async () => {
   const home = await read("src/pages/index.astro");
 
