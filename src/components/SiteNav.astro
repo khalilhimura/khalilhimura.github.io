@@ -28,4 +28,22 @@ const isActive = (href: string) => href === "/" ? currentPath === "/" : currentP
       {secondaryLinks.map((link) => <a class="more-link" href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>{link.label}</a>)}
     </nav>
   </div>
+  <details class="mobile-nav">
+    <summary class="menu-toggle" aria-label="Toggle navigation menu">
+      <span class="menu-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <span>Menu</span>
+    </summary>
+    <div class="mobile-nav-panel">
+      <nav aria-label="Mobile primary navigation">
+        {primaryLinks.map((link) => <a href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>{link.label}</a>)}
+      </nav>
+      <nav class="secondary-nav" aria-label="Mobile secondary navigation">
+        {secondaryLinks.map((link) => <a class="more-link" href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>{link.label}</a>)}
+      </nav>
+    </div>
+  </details>
 </header>
