@@ -1,0 +1,20 @@
+---
+title: "Agent harnesses: the scaffolding that decides whether agents finish the job"
+source: "Research"
+sourceUrl: "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents"
+publishedAt: 2026-06-09
+summary: "Frontier labs now treat the harness — not the model — as the deciding factor in whether long-running agents make consistent progress. A review of what Anthropic and OpenAI shipped in 2026."
+tags: ["AI agents", "agent harness", "engineering", "research"]
+media: []
+crawlStatus: "manual-review"
+---
+
+If 2025 was the year of agents, 2026 is shaping up to be the year of agent harnesses. A harness is the scaffolding around a model: the loop that feeds it context, the tools it may call, the permissions it must respect, and the state that survives when its context window does not. The frontier labs have converged on a blunt conclusion — the harness, more than raw model capability, determines whether an agent working for hours or days actually finishes the job.
+
+Anthropic laid out the core problem in its engineering post [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents): developers increasingly ask agents to take on tasks that span many context windows, yet "getting agents to make consistent progress across multiple context windows remains an open problem." Anthropic's answer splits the work between two roles. An *initializer agent* runs once at the start of a project — it expands the user's prompt into a structured feature list, sets up the environment, and writes a boot script for every future session. A *coding agent* is then woken repeatedly, with each session asked to make incremental progress on one feature, run tests, leave a progress note, and commit. The key insight is amnesia management: a fresh context window can reconstruct the state of work from a progress file and the git history rather than from a conversation it never saw.
+
+Anthropic extended this design in [Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps), which adds a dedicated evaluation role so that planning, generation, and testing are handled by distinct agents with isolated contexts. The same philosophy scaled dramatically in [Building a C compiler with a team of parallel Claudes](https://www.anthropic.com/engineering/building-c-compiler), where a harness coordinated parallel Claude instances on a single, verifiable goal — evidence that orchestration structure, not just model intelligence, carries multi-week projects.
+
+The most significant 2026 shift is that harnesses stopped being do-it-yourself patterns and became products. Anthropic's [Scaling Managed Agents](https://www.anthropic.com/engineering/managed-agents) post describes decoupling the "brain" (the model) from the "hands" (the runtime that executes tools, manages files, and enforces permissions), offering a stable interface for an agent runtime instead of a recipe each team must reimplement. OpenAI moved in the same direction from the opposite end, building harness primitives — sessions, tool orchestration, guardrails, and handoffs between agents — directly into its open-source [Agents SDK](https://openai.com/index/new-tools-for-building-agents/), making the boundary between agents the central design primitive.
+
+For practitioners the takeaway is concrete. Whatever stack you choose, the load-bearing pieces are the same: durable state outside the context window, a clean environment-initialization step, incremental units of work with verifiable tests, and a permission model the agent cannot talk its way around. The competitive question for tooling vendors in the second half of 2026 is whether teams will pay for a managed runtime or assemble these pieces themselves on open SDKs. Models will keep improving either way, but the labs' own engineering writing is unambiguous — without a well-designed harness, a stronger model simply fails in longer, more expensive ways.
