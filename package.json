@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "test": "node --test tests/*.test.mjs",
-    "build": "astro build && pagefind --site dist && node scripts/prepare-cloudflare-preview-config.mjs",
+    "build": "node scripts/generate-og-images.mjs && astro build && pagefind --site dist && node scripts/prepare-cloudflare-preview-config.mjs",
+    "og:generate": "node scripts/generate-og-images.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "deploy": "npm run build && wrangler deploy",
@@ -24,6 +25,7 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "wrangler": "^4.95.0"
   }
 }
