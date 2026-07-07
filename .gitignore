@@ -3,6 +3,7 @@ dist/
 .astro/
 .pagefind/
 .codex/
+public/og/
 .DS_Store
 npm-debug.log*
 

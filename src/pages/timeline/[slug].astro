@@ -14,7 +14,11 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout title={`${post.data.title} | Timeline`}>
+<BaseLayout
+  title={`${post.data.title} | Timeline`}
+  description={post.data.summary}
+  image={`/og/${post.slug}.png`}
+>
   <article class="content-page">
     <ClayCard tone="cyan">
       <SourceBadge source={post.data.source} status={post.data.crawlStatus} />

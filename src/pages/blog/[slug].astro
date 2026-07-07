@@ -13,7 +13,11 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout title={`${post.data.title} | Blog`}>
+<BaseLayout
+  title={`${post.data.title} | Blog`}
+  description={post.data.summary}
+  image={`/og/${post.slug}.png`}
+>
   <article class="content-page">
     <ClayCard tone="peach">
       <span class="eyebrow">Expanded from {post.data.source}</span>
