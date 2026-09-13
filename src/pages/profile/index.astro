@@ -1,40 +1,19 @@
 ---
-import ClayCard from "@components/ClayCard.astro";
+import { portrait } from "../../data/images";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { currentWork, socials, tatlerProfile } from "../../data/editorial";
 ---
-
-<BaseLayout title="Profile | Khalil Nooh">
-  <section class="content-page">
-    <ClayCard tone="indigo">
-      <span class="eyebrow">Profile</span>
-      <h1>Khalil Nooh</h1>
-      <p class="lead">
-        A professional public profile shaped around portfolio proof, public thinking, media, and source-linked updates.
-      </p>
-    </ClayCard>
-
-    <ClayCard tone="mint">
-      <h2>What this profile collects</h2>
-      <p>
-        This site is designed to become the canonical public record for Khalil's work: selected projects, source-linked posts, mirrored public media, and longer reflections generated from the public timeline.
-      </p>
-      <div class="tag-row">
-        <span class="tag">Strategy</span>
-        <span class="tag">Portfolio</span>
-        <span class="tag">Public writing</span>
-        <span class="tag">Media</span>
-      </div>
-    </ClayCard>
-
-    <ClayCard tone="peach">
-      <h2>Contact and sources</h2>
-      <p>
-        Add preferred contact channels and verified social links here. Public sources can be connected through the source configuration and crawler workflow.
-      </p>
-      <div class="tag-row">
-        <a class="button primary" href="mailto:hello@khalilnooh.com">Email</a>
-        <a class="button" href="/timeline/">Public timeline</a>
-      </div>
-    </ClayCard>
+<BaseLayout title="Profile | Khalil Nooh" description="From Mesolitica and MaLLaM to The Future Is Solo. Meet Khalil Nooh, an AI builder, educator, and perpetually curious Malaysian.">
+  <section class="profile-hero">
+    <div><p class="eyebrow">A little about me</p><h1>Always curious.<br />Always building.</h1><p class="lead">I'm Khalil Nooh, a Malaysian AI builder and educator exploring how people can create more with the knowledge they already have.</p><div class="tag-row"><a class="button primary" href={socials.linkedin}>Connect on LinkedIn ↗</a><a class="text-link" href={socials.facebook}>Find me on Facebook ↗</a></div></div>
+    <figure class="hero-portrait"><img src={portrait.url} width={portrait.width} height={portrait.height} alt={portrait.alt} /><figcaption><span>Khalil Nooh</span></figcaption></figure>
+  </section>
+  <section class="profile-body">
+    <div><p class="eyebrow">Where I come from</p><h2>AI should understand<br />its people.</h2><p>As co-founder of Mesolitica, I helped build the business behind MaLLaM, a language model shaped around Malaysian languages, dialects, and culture.</p><p>That work brought together local language research, open-source models, partnerships, and practical applications. It also made one thing clear: access to technology matters most when people can actually use it.</p><a class="text-link" href={tatlerProfile.url}>Read the Mesolitica story in Tatler ↗</a></div>
+    <div><p class="eyebrow">What I'm exploring now</p><h2>What can one<br />person build?</h2><p>The Future Is Solo is my exploration of independent work in the age of AI. I build and test the idea through experiments, writing, and participation in the Malaysian.ai AI residency.</p><p>The Solo Systems Architect (SSA) is the person who directs the work, designs the system, and takes responsibility for the result. The SSA-CMM provides a way to reflect on how that capability develops.</p><a class="text-link" href="https://thefutureissolo.com/">Explore The Future Is Solo ↗</a></div>
+  </section>
+  <section class="profile-body">
+    <div><p class="eyebrow">What I believe</p><h2>Independence and<br />community belong together.</h2><p>Good systems create room for judgment, relationships, and meaningful work. They also make it easier to ask for help, learn from others, and contribute something useful.</p><p>My public writing moves between the technical and the personal: experiments with AI agents, lessons from building, music made with AI, and the people who make the journey worthwhile.</p><a class="text-link" href="/blog/">Explore my writing →</a></div>
+    <div><p class="eyebrow">A place to start</p><h2>Follow your curiosity.</h2>{currentWork.map(work => <p><a class="text-link" href={work.url}>{work.title} ↗</a><br />{work.detail}</p>)}</div>
   </section>
 </BaseLayout>

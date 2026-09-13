@@ -1,8 +1,8 @@
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
+import { getPublishedPosts } from "@lib/content";
 
 export async function GET(context) {
-  const posts = await getCollection("posts");
+  const posts = await getPublishedPosts();
   return rss({
     title: "Khalil Nooh Public Timeline",
     description: "Source-linked public postings, portfolio notes, and media updates.",

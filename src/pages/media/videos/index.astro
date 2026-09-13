@@ -1,0 +1,48 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { videos } from "../../../data/videos";
+const featured = videos[0];
+---
+<BaseLayout title="On the record | Khalil Nooh" description="Watch Khalil Nooh's interviews, conference panels, and talks on Malaysian AI, Mesolitica, MaLLaM, and building a startup.">
+  <header class="video-page-heading">
+    <a class="text-link" href="/media/">← All media</a>
+    <div class="section-heading"><div><p class="eyebrow">Interviews, panels &amp; talks</p><h1>On the record.</h1></div><p>Ideas take shape in conversation.<br />Here are some of mine.</p></div>
+  </header>
+  <section class="video-library" aria-label="Video appearance library">
+    <div class="video-stage">
+      <div class="video-stage-topline"><span class="eyebrow">Selected appearance</span><span data-video-position>01 / {String(videos.length).padStart(2, "0")}</span></div>
+      <div class="video-frame" data-video-frame>
+        <button type="button" class="video-poster" data-video-load disabled aria-label={`Load video: ${featured.title}`}>
+          <img src={featured.image} alt="" width="480" height="270" fetchpriority="high" />
+          <span class="video-play-mark" aria-hidden="true">▶</span>
+          <span class="video-poster-label">Load video <span>Playback starts only when you press play</span></span>
+        </button>
+      </div>
+      <div class="video-stage-meta"><span data-video-channel>{featured.channel}</span><span data-video-year>Published {featured.year}</span></div>
+      <h2 class="video-stage-title" data-video-title>{featured.title}</h2>
+      <p class="video-stage-summary" data-video-summary>{featured.summary}</p>
+      <div class="video-stage-actions"><a class="text-link" data-video-external href={featured.url} target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a><p data-video-status role="status" aria-live="polite">Still image preview. No autoplay.</p></div>
+    </div>
+    <aside class="video-index" aria-labelledby="video-index-title">
+      <div class="video-index-heading"><h2 id="video-index-title">Choose a conversation</h2><p aria-live="polite"><span data-video-count>{videos.length}</span> appearances</p></div>
+      <div class="video-search"><label for="video-search">Find a title, topic, or channel</label><input type="search" id="video-search" placeholder="Try “open-source” or “AWANI”" aria-controls="video-playlist" /></div>
+      <ol class="video-playlist" id="video-playlist">
+        {videos.map((video, index) => <li data-video-item={video.id}>
+          <button type="button" disabled data-video-select={video.id} aria-current={index === 0 ? "true" : undefined}>
+            <span class="video-track-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <img src={video.image} alt="" width="120" height="68" loading="lazy" />
+            <span class="video-track-copy"><span class="video-track-meta">{video.format} · {video.year}</span><strong>{video.title}</strong><span class="video-track-channel">{video.channel}</span></span>
+          </button>
+          <noscript><a class="text-link" href={video.url}>Watch on YouTube ↗</a></noscript>
+        </li>)}
+      </ol>
+      <div class="video-empty" data-video-empty hidden><p>No appearances match your search.</p><button type="button" data-video-reset>Show all appearances</button></div>
+      <p class="video-index-note">Choose an appearance to preview it. The player loads on request.</p>
+      <noscript><p>JavaScript is off. Use the YouTube links below each appearance to watch.</p></noscript>
+    </aside>
+  </section>
+  <section class="video-library-footer"><p>A growing record of the work, from the early days of Mesolitica to conversations about Malaysia’s AI future.</p><a class="text-link" href="/media/">Read the published coverage →</a></section>
+  <script>
+    import "../../../scripts/video-library";
+  </script>
+</BaseLayout>

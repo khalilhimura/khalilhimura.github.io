@@ -3,23 +3,26 @@ import ClayCard from "@components/ClayCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getProjects } from "@lib/content";
 
-const projects = await getProjects();
-const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
+const allProjects = await getProjects();
+const priority = ["the-future-is-solo", "accumulated-curiosity", "ai-fluency", "mesolitica-mallam", "ssa-cmm", "kosong", "ai-governance-bill-reader"];
+const projects = allProjects.filter(p => priority.includes(p.slug)).sort((a,b) => priority.indexOf(a.slug) - priority.indexOf(b.slug));
+const tones = ["indigo", "mint", "rose"] as const;
 ---
 
 <BaseLayout title="Portfolio | Khalil Nooh">
   <section class="section-heading">
     <div>
       <span class="eyebrow">Portfolio</span>
-      <h1>Selected work</h1>
+      <h1>Ideas, made real.</h1>
     </div>
-    <p>Clay cards for projects, outcomes, links, and evidence that can grow as more public work is added.</p>
+    <p>Books, tools, teaching, and experiments. Each project links to the work or the build record behind it.</p>
   </section>
 
   <section class="grid two">
     {projects.map((project, index) => (
-      <ClayCard tone={tones[index % tones.length]} id={project.id} class="project-card">
-        <p class="project-kicker">{project.data.role} · {project.data.dates}</p>
+      <ClayCard tone={tones[index % tones.length]} id={project.slug} class="project-card" data-enter>
+        <p class="project-kicker">{project.data.role} &middot; {project.data.dates}</p>
+        <span id={project.id} aria-hidden="true"></span>
         <h2>{project.data.title}</h2>
         <p>{project.data.description}</p>
         <div class="prose">
@@ -35,5 +38,10 @@ const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
         </div>
       </ClayCard>
     ))}
+  </section>
+  <section class="home-section">
+    <div class="section-heading"><div><p class="eyebrow">Building in public</p><h2>The weekly build record.</h2></div></div>
+    <p class="lead">A continuing record of TFIS experiments and the Malaysian.ai AI Residency weekly builds: what I tried, what changed, and what came out of it.</p>
+    <a class="text-link" href="https://docs.google.com/presentation/d/1dvbBGs22QvtGogevZ6f5mf8YQE7WDAPBwYlclhTyctI/edit?usp=sharing">Open the experiments &amp; weekly builds ↗</a>
   </section>
 </BaseLayout>

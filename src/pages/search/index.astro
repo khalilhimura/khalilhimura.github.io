@@ -5,17 +5,16 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 
 <BaseLayout title="Search | Khalil Nooh">
   <section class="content-page">
-    <ClayCard tone="indigo">
-      <span class="eyebrow">Search</span>
-      <h1>Find the trail</h1>
-      <p class="lead">Search across profile pages, portfolio work, public posts, expanded blog notes, and mirrored media captions.</p>
+    <ClayCard tone="indigo" data-enter>
+      <h1>Follow an idea.</h1>
+      <p class="lead">Search projects, essays, public posts, and media coverage. A useful idea might be one search away.</p>
     </ClayCard>
     <div class="search-shortcuts" role="navigation" aria-label="Suggested search routes">
       <a class="button" href="/portfolio/">Browse projects</a>
       <a class="button" href="/timeline/">Open timeline</a>
       <a class="button" href="/media/">View media</a>
     </div>
-    <ClayCard tone="plain">
+    <ClayCard tone="plain" data-enter>
       <div id="search"></div>
       <noscript>
         <p>Search requires JavaScript. Browse the timeline, blog, portfolio, or media pages directly.</p>

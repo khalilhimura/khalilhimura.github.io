@@ -1,0 +1,16 @@
+# Video appearance sources
+
+Ten unique YouTube appearances supplied by Khalil. The repeated `2TNczJmc0aI` is included once. Summaries are paraphrases of public titles and descriptions, not transcript summaries. Years label YouTube publication, which can differ from the event year in a title.
+
+The original still thumbnails are stored in Cloudflare R2 under `video-thumbnails/<id>-hd.jpg` (1280 × 720 originals; earlier 480 × 360 keys remain available) and served from `media.khalilnooh.com`. No videos or external players load before a deliberate click. The iframe requests `autoplay=0` and omits autoplay permission. Every appearance retains a direct YouTube link.
+
+- OvbbKoK_VCw: Verified on the public YouTube watch page: title, channel, and page metadata upload date (2024-12-20). The player response reports playableInEmbed: true. Summary is based only on the visible title and description; no transcript was reviewed.
+- lTuxWc-E_R4: Verified on the public YouTube watch page: title, channel, and page metadata upload date (2025-01-04). The player response reports playableInEmbed: true. Summary is based only on the visible title and description; no transcript was reviewed.
+- GOgLmTtsGjY: Verified on the public YouTube watch page: title, channel, and page metadata upload date (2025-06-19). The player response reports playableInEmbed: true. Summary is based only on the visible title and description; no transcript was reviewed.
+- HKb8MhIOBHQ: Verified on the public YouTube watch page: title, channel, and page metadata upload date (2025-09-02). The player response reports playableInEmbed: true. Summary is based only on the visible title and description; no transcript was reviewed.
+- inTzPaAErf8: Verified on the public YouTube watch page: title, channel, and page metadata upload date (2019-11-25). The player response reports playableInEmbed: true. Summary is based only on the visible title and description; no transcript was reviewed.
+- ZTI7ALiRgqU: Official YouTube oEmbed returned this title, channel, thumbnail, and an iframe embed. The public watch-page metadata returned publishDate 2025-11-16; no transcript was reviewed. Embed availability is observable through the oEmbed iframe response.
+- HO7FNZNKHIA: Official YouTube oEmbed returned this title, channel, thumbnail, and an iframe embed. The public watch-page metadata returned publishDate 2024-12-04; no transcript was reviewed. Embed availability is observable through the oEmbed iframe response.
+- rrYzktSWPjg: Official YouTube oEmbed returned this title, channel, thumbnail, and an iframe embed. The public watch-page metadata returned publishDate 2025-12-01; no transcript was reviewed. Embed availability is observable through the oEmbed iframe response.
+- 2TNczJmc0aI: This ID is included once only. Official YouTube oEmbed returned this title, channel, thumbnail, and an iframe embed. The public watch-page metadata returned publishDate 2021-01-19; no transcript was reviewed. Embed availability is observable through the oEmbed iframe response.
+- -p4q06ibQ_0: Official YouTube oEmbed returned this title, channel, thumbnail, and an iframe embed. The public watch-page metadata returned publishDate 2024-03-16; no transcript was reviewed. Embed availability is observable through the oEmbed iframe response.

@@ -1,107 +1,74 @@
 ---
-import ClayCard from "@components/ClayCard.astro";
-import SourceBadge from "@components/SourceBadge.astro";
+import { portrait } from "../data/images";
+import VideoPreview from "@components/VideoPreview.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { formatDate, getMediaItems, getProjects, getPublishedPosts } from "@lib/content";
-
-const posts = await getPublishedPosts();
-const projects = await getProjects();
-const media = await getMediaItems();
-const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
+import SelectedWriting from "@components/SelectedWriting.astro";
+import { currentWork, press, socials } from "../data/editorial";
+const conversationPublishers = [
+  { name: "Tatler Asia", label: "Tatler", detail: "ASIA", style: "tatler" },
+  { name: "Fortune", label: "FORTUNE", detail: "", style: "fortune" },
+  { name: "The Star", label: "The Star", detail: "", style: "star" },
+  { name: "New Straits Times", label: "New Straits", detail: "TIMES", style: "nst" },
+  { name: "The Edge Malaysia", label: "The Edge", detail: "MALAYSIA", style: "edge" },
+  { name: "Astro AWANI", label: "astro", detail: "AWANI", style: "awani" },
+  { name: "e27", label: "e27", detail: "", style: "e27" },
+  { name: "Malay Mail", label: "Malay Mail", detail: "", style: "mail" },
+  { name: "Digital News Asia", label: "DIGITAL NEWS", detail: "ASIA", style: "dna" },
+  { name: "Vulcan Post", label: "Vulcan Post", detail: "", style: "vulcan" },
+  { name: "Sinar Harian", label: "Sinar", detail: "HARIAN", style: "sinar" },
+  { name: "Amanz", label: "amanz", detail: "", style: "amanz" },
+  { name: "SoyaCincau", label: "SoyaCincau", detail: "", style: "soya" },
+].map(publisher => ({ ...publisher, url: press.find(item => item.publisher === publisher.name)!.url }));
 ---
-
-<BaseLayout title="Khalil Nooh | Profile, Portfolio, Timeline">
-  <section class="hero">
-    <ClayCard tone="plain" class="hero-card hero-card-primary">
-      <span class="eyebrow">Public profile and proof archive</span>
-      <h1>Khalil Nooh</h1>
-      <p class="lead">
-        A source-linked operating record for founder work, public thinking, media, and the evidence trail behind what gets built.
-      </p>
-      <div class="tag-row">
-        <a class="button" href="/portfolio/">View portfolio</a>
-        <a class="button primary" href="/timeline/">Explore timeline</a>
-      </div>
-    </ClayCard>
-
-    <ClayCard tone="mint" class="hero-card proof-card">
-      <span class="eyebrow">Start with the proof</span>
-      <h2>Work, signals, and receipts in one place.</h2>
-      <p>
-        Posts from LinkedIn, Facebook, Audy's Vault, and future sources are organized into searchable entries with attribution, media, and review status.
-      </p>
-      <div class="proof-strip" role="region" aria-label="Site coverage">
-        <span><strong>{projects.length}</strong> projects</span>
-        <span><strong>{posts.length}</strong> posts</span>
-        <span><strong>{media.length}</strong> media items</span>
-      </div>
-    </ClayCard>
-  </section>
-
-  <section>
-    <div class="section-heading">
-      <div>
-        <span class="eyebrow">Featured work</span>
-        <h2>Portfolio</h2>
-      </div>
-      <a class="button" href="/portfolio/">All projects</a>
+<BaseLayout title="Khalil Nooh | Curiosity, AI & The Future Is Solo" description="I'm Khalil Nooh. I build AI systems, write about independent work, and help people turn curiosity into capability. Explore The Future Is Solo, Accumulated Curiosity, and AI Fluency.">
+  <section class="home-hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">Builder. Educator. Perpetually curious.</p>
+      <h1 id="hero-title">Curiosity is<br />how I build.</h1>
+      <p class="hero-intro">I'm Khalil Nooh. I build AI systems, write about independent work, and help people turn what they know into what they can create.</p>
+      <div class="hero-actions"><a class="button primary" href="#current-work">Explore my work <span aria-hidden="true">↗</span></a><a class="text-link" href="/profile/">A little about me <span aria-hidden="true">→</span></a></div>
+      <p class="hero-note">From building MaLLaM at Mesolitica to <a href="https://thefutureissolo.com/">The Future Is Solo</a>.</p>
     </div>
-    <div class="grid">
-      {projects.slice(0, 3).map((project, index) => (
-        <ClayCard tone={tones[index % tones.length]} href={`/portfolio/#${project.id}`} class="feature-card">
-          <h3>{project.data.title}</h3>
-          <p>{project.data.description}</p>
-          <div class="tag-row">{project.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
-        </ClayCard>
-      ))}
+    <figure class="hero-portrait">
+      <img src={portrait.url} width={portrait.width} height={portrait.height} alt={portrait.alt} fetchpriority="high" />
+      <figcaption><span>Khalil Nooh</span></figcaption>
+    </figure>
+  </section>
+  <div class="press-strip" aria-label="Selected publications">
+    <div class="press-strip-heading"><span class="eyebrow">In the conversation</span><a class="text-link" href="/media/">Explore all {press.length} features <span aria-hidden="true">↗</span></a></div>
+    <div class="publisher-grid">{conversationPublishers.map(publisher => (
+      <a class={`publisher-wordmark publisher-${publisher.style}`} href={publisher.url} aria-label={`Read coverage at ${publisher.name}`}><span>{publisher.label}</span>{publisher.detail && <small>{publisher.detail}</small>}</a>
+    ))}</div>
+  </div>
+  <section class="home-section" id="current-work">
+    <div class="section-heading"><div><p class="eyebrow">What I'm working on</p><h2>A thought. A book. A practice.</h2></div><a class="text-link" href="/portfolio/">Full portfolio <span aria-hidden="true">→</span></a></div>
+    <div class="current-work-grid">
+      <a class="work-feature" href={currentWork[0].url} data-enter>
+        <div class="work-heading"><span class="eyebrow">{currentWork[0].kind}</span><span class="link-arrow" aria-hidden="true">↗</span></div>
+        <h3>The Future<br />Is Solo<span class="accent-period">.</span></h3><p>{currentWork[0].description}</p>
+        <div class="work-bottom"><span>{currentWork[0].action}</span><span aria-hidden="true">→</span></div>
+      </a>
+      <div class="work-companions">{currentWork.slice(1).map((work) => (
+        <a class="work-companion" href={work.url} data-enter>
+          <div class="work-heading"><span class="eyebrow">{work.kind}</span><span class="link-arrow" aria-hidden="true">↗</span></div>
+          <h3>{work.title}</h3><p>{work.description}</p>
+          <div class="work-bottom"><span>{work.action} <span aria-hidden="true">→</span></span><small>{work.detail}</small></div>
+        </a>
+      ))}</div>
     </div>
   </section>
-
-  <section>
-    <div class="section-heading">
-      <div>
-        <span class="eyebrow">Latest public posts</span>
-        <h2>Timeline</h2>
-      </div>
-      <a class="button" href="/timeline/">Open archive</a>
-    </div>
-    <div class="timeline-list">
-      {posts.slice(0, 3).map((post, index) => (
-        <ClayCard tone={tones[(index + 2) % tones.length]} href={`/timeline/${post.slug}/`} class="archive-card">
-          <div class="timeline-card">
-            <div>
-              <p class="timeline-date">{formatDate(post.data.publishedAt)}</p>
-              <SourceBadge source={post.data.source} status={post.data.crawlStatus} />
-            </div>
-            <div>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.summary}</p>
-              <div class="tag-row">{post.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
-            </div>
-          </div>
-        </ClayCard>
-      ))}
-    </div>
+  <section class="home-section" id="writing">
+    <div class="section-heading"><div><p class="eyebrow">Selected writing</p><h2>Thinking out loud.<br />Building as I go.</h2></div><a class="text-link" href="/blog/">More writing <span aria-hidden="true">→</span></a></div>
+    <SelectedWriting />
+    <p class="social-note">The conversation continues on <a href={socials.linkedin}>LinkedIn <span aria-hidden="true">↗</span></a> and <a href={socials.facebook}>Facebook <span aria-hidden="true">↗</span></a>.</p>
   </section>
-
-  <section>
-    <div class="section-heading">
-      <div>
-        <span class="eyebrow">Media</span>
-        <h2>Mirrored highlights</h2>
-      </div>
-      <a class="button" href="/media/">Media library</a>
-    </div>
-    <div class="grid two">
-      {media.slice(0, 2).map((item, index) => (
-        <ClayCard tone={tones[(index + 4) % tones.length]} href="/media/" class="media-tile feature-card">
-          {item.data.localPath ? <img src={item.data.localPath} alt={item.data.title} /> : <div class="media-preview">{item.data.type}</div>}
-          <div>
-            <h3>{item.data.title}</h3>
-            <p>{item.data.attribution}</p>
-          </div>
-        </ClayCard>
-      ))}
-    </div>
+  <div class="home-section"><VideoPreview /></div>
+  <section class="about-preview home-section" aria-labelledby="about-heading">
+    <div><p class="eyebrow">The thread through it all</p><h2 id="about-heading">More capable people.<br />More possible futures.</h2><a class="text-link" href="/profile/">The longer story <span aria-hidden="true">→</span></a></div>
+    <div class="about-copy"><p>At Mesolitica, we worked on a simple conviction: AI should understand the people who use it. That meant building MaLLaM around Malaysian languages, context, and culture.</p><p>Today, I'm asking a related question: what could you build if you had the tools, the confidence, and the systems to act on your own ideas?</p><p>That's the work behind The Future Is Solo. I call the person doing it a <strong>Solo Systems Architect</strong>. The starting point is curiosity. The next step is making something real.</p></div>
+  </section>
+  <section class="home-section" id="press">
+    <div class="section-heading"><div><p class="eyebrow">In the media</p><h2>A few outside perspectives.</h2></div><a class="text-link" href="/media/">All coverage <span aria-hidden="true">→</span></a></div>
+    <div class="press-list">{press.slice(0,3).map((item) => (<a class="press-row" href={item.url} data-enter><div class="press-publisher">{item.publisher}<small>{item.category} / {item.year}</small></div><h3>{item.title}</h3><span class="link-arrow" aria-hidden="true">↗</span></a>))}</div>
   </section>
 </BaseLayout>

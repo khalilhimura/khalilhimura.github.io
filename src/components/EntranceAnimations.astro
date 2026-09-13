@@ -1,0 +1,61 @@
+---
+// Island component for scroll-driven entrance animations.
+// Uses IntersectionObserver + CSS transitions.
+// Zero framework dependencies — works in any Astro SSR mode.
+---
+
+<style>
+  .entrance-fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+                transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .entrance-fade-up {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .entrance-fade-up.entrance-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  (function() {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("entrance-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    function observeEntrances() {
+      document.querySelectorAll("[data-enter]").forEach((el) => {
+        if (!el.classList.contains("entrance-fade-up")) {
+          el.classList.add("entrance-fade-up");
+          observer.observe(el);
+        }
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", observeEntrances);
+    } else {
+      observeEntrances();
+    }
+  })();
+</script>

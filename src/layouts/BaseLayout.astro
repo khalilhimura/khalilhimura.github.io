@@ -1,20 +1,25 @@
 ---
 import SiteNav from "@components/SiteNav.astro";
+import { socials } from "../data/editorial";
 import "@styles/global.css";
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
-  description = "Khalil Nooh's public profile, portfolio, media, and public-posting timeline.",
-  image = "/og/default.png"
+  description = "Khalil Nooh: AI builder, educator, and founder of The Future Is Solo. Writing, experiments, and practical paths from curiosity to capability.",
+  image = "/og/default.png",
+  noindex = false
 } = Astro.props;
 
 const ogImageUrl = new URL(image, Astro.site ?? Astro.url).toString();
+const siteUrl = Astro.site?.toString() ?? "https://khalilnooh.com";
+const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 ---
 
 <!doctype html>
@@ -23,37 +28,53 @@ const ogImageUrl = new URL(image, Astro.site ?? Astro.url).toString();
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <meta name="theme-color" content="#fff1f2" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#fbfbf8" />
+    <meta name="color-scheme" content="light" />
+
+    <!-- RSS -->
     <link rel="alternate" type="application/rss+xml" title="Khalil Nooh timeline" href="/rss.xml" />
+
+    <!-- SEO keywords (informational, not a tag cloud) -->
+    <meta name="keywords" content="Khalil Nooh, The Future Is Solo, TFIS, Solo Systems Architect, SSA, SSA-CMM, Mesolitica, MaLLaM, Accumulated Curiosity, AI agents, agent harnesses, portfolio, public archive" />
+
     <title>{title}</title>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-shell">
       <SiteNav />
-      <main data-pagefind-body>
+      <main id="main" data-pagefind-body={noindex ? undefined : ""}>
         <slot />
       </main>
       <footer class="site-footer">
-        <div>
-          <strong>Khalil Nooh</strong>
-          <p>Public profile, portfolio, media, and source-linked timeline.</p>
+        <div class="footer-main">
+          <div><span class="eyebrow">Keep the curiosity going</span><h2>Good things start<br />with a conversation.</h2><p>Building something, rethinking your work, or following an interesting question? Let's connect.</p></div>
+          <div class="footer-links"><a href={socials.linkedin}>LinkedIn ↗</a><a href={socials.facebook}>Facebook ↗</a><a href={socials.github}>GitHub ↗</a></div>
         </div>
-        <div class="footer-links">
-          <a href="/timeline/">Timeline</a>
-          <a href="/rss.xml">RSS</a>
-          <a href="mailto:hello@khalilnooh.com">Contact</a>
-        </div>
+        <div class="footer-bottom"><span>© {new Date().getFullYear()} Khalil Nooh</span><span>Built with curiosity. Made in Malaysia.</span><div><a href="/rss.xml">RSS</a> / <a href="/search/">Search the site</a></div></div>
       </footer>
     </div>
+    <script>import "../scripts/external-links";</script>
   </body>
 </html>

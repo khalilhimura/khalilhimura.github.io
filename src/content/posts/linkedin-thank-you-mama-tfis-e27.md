@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Thank you, Mama: making TFIS legible outside the AI bubble"
 source: "LinkedIn"
 sourceUrl: "https://www.linkedin.com/in/khalilnooh/recent-activity/all/"

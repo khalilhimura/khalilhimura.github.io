@@ -28,13 +28,16 @@ test("site navigation collapses into a mobile hamburger menu", async () => {
   assert.match(css, /min-height: 48px/);
 });
 
-test("homepage leads with a clearer editorial portfolio promise", async () => {
+test("homepage leads with current work and verified social sources", async () => {
   const home = await read("src/pages/index.astro");
-
-  assert.match(home, /source-linked operating record for founder work/i);
-  assert.match(home, /Start with the proof/i);
-  assert.match(home, /proof-strip/);
-  assert.match(home, /class="proof-strip" role="region" aria-label="Site coverage"/);
+  const editorial = await read("src/data/editorial.ts");
+  assert.match(home, /href="#current-work"/);
+  assert.match(home, /id="current-work"/);
+  assert.match(home, /<SelectedWriting/);
+  assert.match(editorial, /https:\/\/thefutureissolo.com\/accumulated-curiosity\//);
+  assert.match(editorial, /https:\/\/thefutureissolo.com\/fluency/);
+  assert.match(editorial, /https:\/\/www.facebook.com\/khalil.nooh/);
+  assert.doesNotMatch(editorial, /augmented-curiosity|facebook.com\/khalilnooh/);
 });
 
 test("timeline filters expose active state, result count, and empty state", async () => {

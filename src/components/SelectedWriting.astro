@@ -1,0 +1,13 @@
+---
+import { selectedWriting } from "../data/editorial";
+---
+<div class="writing-grid">
+  {selectedWriting.map((post) => (
+    <a class="writing-item" href={post.url} data-enter>
+      <div class="writing-meta"><span>{post.topic}</span><span>{post.source} <span aria-hidden="true">↗</span></span></div>
+      <h3>{post.title}</h3>
+      <p>{post.summary}</p>
+      <span class="text-link">Read the original <span aria-hidden="true">↗</span></span>
+    </a>
+  ))}
+</div>

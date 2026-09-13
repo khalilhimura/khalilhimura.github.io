@@ -1,0 +1,17 @@
+---
+import { videos } from "../data/videos";
+const featured = videos[0];
+---
+<section class="video-preview" aria-labelledby="video-preview-title">
+  <a class="video-preview-cover" href={`/media/videos/?v=${featured.id}`} aria-label={`Explore video appearances, starting with ${featured.title}`}>
+    <img src={featured.image} alt={featured.title} width="480" height="270" loading="lazy" />
+    <span class="video-play-mark" aria-hidden="true">▶</span>
+    <span class="video-cover-caption">{featured.channel}</span>
+  </a>
+  <div class="video-preview-copy">
+    <p class="eyebrow">On the record · {videos.length} appearances</p>
+    <h2 id="video-preview-title">The ideas,<br />out loud.</h2>
+    <p>Conversations, conference stages, and the occasional look back. A collection of my appearances on AI, language, and building things that matter.</p>
+    <a class="text-link" href="/media/videos/">Explore the video library <span aria-hidden="true">↗</span></a>
+  </div>
+</section>

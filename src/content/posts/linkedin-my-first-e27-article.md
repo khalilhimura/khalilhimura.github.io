@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "My first e27 article, written with Audy and Claude Code"
 source: "LinkedIn"
 sourceUrl: "https://www.linkedin.com/in/khalilnooh/recent-activity/all/"

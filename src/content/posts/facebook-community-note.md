@@ -1,7 +1,8 @@
 ---
+draft: true
 title: "Community update and media highlight"
 source: "Facebook"
-sourceUrl: "https://www.facebook.com/khalilnooh"
+sourceUrl: "https://www.facebook.com/khalil.nooh"
 publishedAt: 2026-04-24
 summary: "A source-linked timeline placeholder for public Facebook updates that should remain visible even when the platform blocks full-body crawling."
 tags: ["community", "media", "updates"]

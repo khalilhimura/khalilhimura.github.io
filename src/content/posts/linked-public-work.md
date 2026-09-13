@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Building public work as a living record"
 source: "LinkedIn"
 sourceUrl: "https://www.linkedin.com/in/khalilnooh/"

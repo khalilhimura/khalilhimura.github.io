@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Audy's Vault knowledge trail"
 source: "Audy's Vault"
 sourceUrl: "https://audysvault.example.com/khalil-nooh"

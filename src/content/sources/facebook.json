@@ -1,6 +1,6 @@
 {
   "platform": "Facebook",
-  "profileUrl": "https://www.facebook.com/khalilnooh",
+  "profileUrl": "https://www.facebook.com/khalil.nooh",
   "crawlStrategy": "profile",
   "enabled": true,
   "lastCrawledAt": null

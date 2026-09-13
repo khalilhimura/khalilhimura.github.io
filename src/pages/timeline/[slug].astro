@@ -18,9 +18,10 @@ const { Content } = await render(post);
   title={`${post.data.title} | Timeline`}
   description={post.data.summary}
   image={`/og/${post.slug}.png`}
+  noindex={post.data.draft}
 >
   <article class="content-page">
-    <ClayCard tone="cyan">
+    <ClayCard tone="indigo" data-enter>
       <SourceBadge source={post.data.source} status={post.data.crawlStatus} />
       <h1>{post.data.title}</h1>
       <p class="lead">{post.data.summary}</p>
@@ -28,7 +29,7 @@ const { Content } = await render(post);
       <div class="tag-row">{post.data.tags.map((tag) => <span class="tag">{tag}</span>)}</div>
       <a class="button primary" href={post.data.sourceUrl}>Original source</a>
     </ClayCard>
-    <ClayCard tone="plain" class="prose">
+    <ClayCard tone="plain" class="prose" data-enter>
       <Content />
     </ClayCard>
   </article>

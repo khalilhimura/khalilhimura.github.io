@@ -17,15 +17,16 @@ const { Content } = await render(post);
   title={`${post.data.title} | Blog`}
   description={post.data.summary}
   image={`/og/${post.slug}.png`}
+  noindex={post.data.draft}
 >
   <article class="content-page">
-    <ClayCard tone="peach">
-      <span class="eyebrow">Expanded from {post.data.source}</span>
+    <ClayCard tone="mint" data-enter>
+      <span class="eyebrow">{post.data.draft ? "Archived draft" : "Writing"} / {post.data.source}</span>
       <h1>{post.data.title}</h1>
       <p class="lead">{post.data.summary}</p>
       <p><strong>{formatDate(post.data.publishedAt)}</strong></p>
     </ClayCard>
-    <ClayCard tone="plain" class="prose">
+    <ClayCard tone="plain" class="prose" data-enter>
       <Content />
       <p><a class="button primary" href={post.data.sourceUrl}>Read original source</a></p>
     </ClayCard>

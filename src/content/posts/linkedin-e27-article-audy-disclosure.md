@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "The e27 TFIS article and the Audy disclosure"
 source: "LinkedIn"
 sourceUrl: "https://www.linkedin.com/in/khalilnooh/recent-activity/all/"

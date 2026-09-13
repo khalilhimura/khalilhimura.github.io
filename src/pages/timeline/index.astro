@@ -8,20 +8,20 @@ const posts = await getPublishedPosts();
 const sources = uniqueSorted(posts.map((post) => post.data.source));
 const years = uniqueSorted(posts.map((post) => getYear(post.data.publishedAt))).reverse();
 const tags = uniqueSorted(posts.flatMap((post) => post.data.tags));
-const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
+const tones = ["indigo", "mint", "rose"] as const;
 ---
 
 <BaseLayout title="Timeline | Khalil Nooh">
   <section class="section-heading">
     <div>
       <span class="eyebrow">Public timeline</span>
-      <h1>All public postings</h1>
+      <h1>The work, as it unfolds.</h1>
     </div>
-    <p>Search and filter source-linked posts from public profiles, source stubs, and future Audy's Vault imports.</p>
+    <p>Follow the work over time. Filter by topic, year, or source to find an idea worth revisiting.</p>
   </section>
 
   <ClayCard tone="plain" class="filter-panel">
-    <input class="search-box" type="search" placeholder="Filter posts by title, summary, source, or tag" data-filter-search />
+    <input class="search-box" type="search" placeholder="Filter posts by title, summary, source, or tag" data-filter-search aria-label="Filter posts" />
     <div class="filter-row" aria-label="Timeline filters">
       <button type="button" data-filter="all" aria-pressed="true">All</button>
       {sources.map((source) => <button type="button" data-filter-source={source} aria-pressed="false">{source}</button>)}
@@ -42,6 +42,7 @@ const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
         tone={tones[index % tones.length]}
         href={`/timeline/${post.slug}/`}
         class="timeline-item"
+        data-enter
         data-source={post.data.source}
         data-year={getYear(post.data.publishedAt)}
         data-tags={post.data.tags.join(" ")}
@@ -73,7 +74,7 @@ const tones = ["rose", "indigo", "cyan", "mint", "peach", "orange"] as const;
     const tagButtons = [...document.querySelectorAll("[data-filter-tag]")];
     let active = { source: "", year: "", tag: "" };
 
-    function setPressed(buttons, matcher) {
+    function setPressed(buttons: Element[], matcher: (button: HTMLElement) => boolean) {
       buttons.forEach((button) => {
         if (!(button instanceof HTMLElement)) return;
         button.setAttribute("aria-pressed", matcher(button) ? "true" : "false");
