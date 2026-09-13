@@ -1,4 +1,5 @@
 import { videos } from "../data/videos";
+import { allowsExternalMedia, CONSENT_EVENT, openCookieSettings } from "./consent";
 
 const frame = document.querySelector<HTMLElement>("[data-video-frame]");
 // Reuse the rendered SVG when a selection rebuilds the poster.
@@ -74,6 +75,10 @@ frame?.addEventListener("click", event => {
   const target = event.target;
   if (!(target instanceof Element) || !target.closest("[data-video-load]")) return;
   event.preventDefault();
+  if (!allowsExternalMedia()) {
+    openCookieSettings(true);
+    return;
+  }
   const player = document.createElement("iframe");
   player.src = `https://www.youtube-nocookie.com/embed/${active.id}?autoplay=0&rel=0`;
   player.title = active.title;
@@ -83,6 +88,14 @@ frame?.addEventListener("click", event => {
   frame.replaceChildren(player);
   player.focus();
   if (status) status.textContent = "Player ready. Press play to start, or open on YouTube.";
+});
+
+// Withdrawal, expiration and changes made in another tab stop existing playback.
+window.addEventListener(CONSENT_EVENT, () => {
+  if (!allowsExternalMedia() && frame?.querySelector("iframe")) {
+    showVideo(active.id);
+    if (status) status.textContent = "External media is blocked. Your video has been unloaded.";
+  }
 });
 
 function filterVideos() {

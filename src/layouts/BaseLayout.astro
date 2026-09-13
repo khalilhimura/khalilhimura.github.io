@@ -1,5 +1,6 @@
 ---
 import ArrowIcon from "@components/ArrowIcon.astro";
+import CookieConsent from "@components/CookieConsent.astro";
 import SiteNav from "@components/SiteNav.astro";
 import { socials } from "../data/editorial";
 import "@styles/global.css";
@@ -73,9 +74,10 @@ const canonical = new URL(Astro.url.pathname, siteUrl).toString();
           <div><span class="eyebrow">Keep the curiosity going</span><h2>Good things start<br />with a conversation.</h2><p>Building something, rethinking your work, or following an interesting question? Let's connect.</p></div>
           <div class="footer-links"><a href={socials.linkedin}>LinkedIn <ArrowIcon /></a><a href={socials.facebook}>Facebook <ArrowIcon /></a><a href={socials.github}>GitHub <ArrowIcon /></a></div>
         </div>
-        <div class="footer-bottom"><span>© {new Date().getFullYear()} Khalil Nooh</span><span>Built with curiosity. Made in Malaysia.</span><div><a href="/rss.xml">RSS</a> / <a href="/search/">Search the site</a></div></div>
+        <div class="footer-bottom"><span>© {new Date().getFullYear()} Khalil Nooh</span><span>Built with curiosity. Made in Malaysia.</span><div class="footer-utilities"><a href="/rss.xml">RSS</a><a href="/search/">Search the site</a><a href="/privacy/">Privacy &amp; cookies</a><button type="button" class="cookie-settings-link" data-cookie-settings hidden>Cookie settings</button></div></div>
       </footer>
     </div>
+    <CookieConsent />
     <script>import "../scripts/external-links";</script>
   </body>
 </html>

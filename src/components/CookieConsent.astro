@@ -1,0 +1,24 @@
+<section class="consent-banner" data-consent-banner aria-labelledby="consent-title" hidden data-pagefind-ignore>
+  <div class="consent-copy">
+    <h2 id="consent-title">Your privacy, your choice.</h2>
+    <p>Essential services deliver and protect this site. YouTube videos stay blocked until you allow external media and choose to load a video. We use local storage to remember your choice for 180 days. <a href="/privacy/">Privacy &amp; cookies</a></p>
+  </div>
+  <div class="consent-actions">
+    <button type="button" data-consent-reject>Reject all</button>
+    <button type="button" data-consent-accept>Accept all</button>
+    <button type="button" data-cookie-settings>Settings</button>
+  </div>
+</section>
+
+<dialog class="consent-dialog" id="cookie-preferences" aria-labelledby="cookie-preferences-title" aria-describedby="cookie-preferences-intro" data-pagefind-ignore>
+  <div class="consent-dialog-heading"><h2 id="cookie-preferences-title">Cookie settings</h2><button type="button" data-consent-close autofocus>Close</button></div>
+  <p id="cookie-preferences-intro">Choose whether this site can load optional external media. You can change or withdraw your choice here at any time.</p>
+  <p class="consent-video-note" data-consent-video-note hidden>To watch here, enable external media and save your choice, then select “Load video” again. You can also use “Open on YouTube” to visit YouTube directly.</p>
+  <div class="consent-category"><div class="consent-category-heading"><h3>Essential services</h3><span>Always active</span></div><p>Cloudflare delivers and protects this site. Local storage remembers your privacy choice. These services cannot be switched off here.</p></div>
+  <div class="consent-category"><label class="consent-media-label" for="consent-external-media"><span>External media · YouTube</span><input type="checkbox" id="consent-external-media" aria-describedby="consent-media-description" /></label><p id="consent-media-description">Off by default. Loading a video connects to YouTube/Google, which can receive your IP address and device information and use cookies or local storage. No player loads just because you accept.</p><p>Turning this off unloads active players and blocks future embeds. It cannot erase data already received or storage held by YouTube; use your browser controls to clear those.</p><a href="https://policies.google.com/privacy">YouTube / Google privacy policy</a></div>
+  <p class="consent-detail">There are no advertising or audience-analytics tags in this site's code. Your choice is kept in this browser for 180 days. <a href="/privacy/">Read the privacy notice · Bahasa Malaysia</a></p>
+  <div class="consent-actions"><button type="button" data-consent-reject>Reject all</button><button type="button" data-consent-accept>Accept all</button></div>
+  <button type="button" class="consent-save" data-consent-save>Save preferences</button>
+</dialog>
+<p class="consent-announcement" data-consent-announcement role="status" aria-live="polite" data-pagefind-ignore></p>
+<script>import "../scripts/consent";</script>
