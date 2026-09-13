@@ -1,5 +1,6 @@
 ---
 import ArrowIcon from "@components/ArrowIcon.astro";
+import PlayIcon from "@components/PlayIcon.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { videos } from "../../../data/videos";
 const featured = videos[0];
@@ -15,7 +16,7 @@ const featured = videos[0];
       <div class="video-frame" data-video-frame>
         <button type="button" class="video-poster" data-video-load disabled aria-label={`Load video: ${featured.title}`}>
           <img src={featured.image} alt="" width="480" height="270" fetchpriority="high" />
-          <span class="video-play-mark" aria-hidden="true">▶</span>
+          <span class="video-play-mark" aria-hidden="true"><PlayIcon /></span>
           <span class="video-poster-label">Load video <span>Playback starts only when you press play</span></span>
         </button>
       </div>

@@ -1,12 +1,13 @@
 ---
 import ArrowIcon from "@components/ArrowIcon.astro";
+import PlayIcon from "@components/PlayIcon.astro";
 import { videos } from "../data/videos";
 const featured = videos[0];
 ---
 <section class="video-preview" aria-labelledby="video-preview-title">
   <a class="video-preview-cover" href={`/media/videos/?v=${featured.id}`} aria-label={`Explore video appearances, starting with ${featured.title}`}>
     <img src={featured.image} alt={featured.title} width="480" height="270" loading="lazy" />
-    <span class="video-play-mark" aria-hidden="true">▶</span>
+    <span class="video-play-mark" aria-hidden="true"><PlayIcon /></span>
     <span class="video-cover-caption">{featured.channel}</span>
   </a>
   <div class="video-preview-copy">

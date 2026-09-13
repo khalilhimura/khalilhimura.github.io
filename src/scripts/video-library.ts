@@ -1,6 +1,8 @@
 import { videos } from "../data/videos";
 
 const frame = document.querySelector<HTMLElement>("[data-video-frame]");
+// Reuse the rendered SVG when a selection rebuilds the poster.
+const playIcon = frame?.querySelector<SVGSVGElement>(".play-icon");
 const title = document.querySelector<HTMLElement>("[data-video-title]");
 const summary = document.querySelector<HTMLElement>("[data-video-summary]");
 const channel = document.querySelector<HTMLElement>("[data-video-channel]");
@@ -31,7 +33,7 @@ function showVideo(id: string | null, updateHistory = false) {
   const play = document.createElement("span");
   play.className = "video-play-mark";
   play.setAttribute("aria-hidden", "true");
-  play.textContent = "▶";
+  if (playIcon) play.append(playIcon.cloneNode(true));
   const label = document.createElement("span");
   label.className = "video-poster-label";
   label.textContent = "Load video";
