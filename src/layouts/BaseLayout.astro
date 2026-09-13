@@ -1,4 +1,5 @@
 ---
+import ArrowIcon from "@components/ArrowIcon.astro";
 import SiteNav from "@components/SiteNav.astro";
 import { socials } from "../data/editorial";
 import "@styles/global.css";
@@ -70,7 +71,7 @@ const canonical = new URL(Astro.url.pathname, siteUrl).toString();
       <footer class="site-footer">
         <div class="footer-main">
           <div><span class="eyebrow">Keep the curiosity going</span><h2>Good things start<br />with a conversation.</h2><p>Building something, rethinking your work, or following an interesting question? Let's connect.</p></div>
-          <div class="footer-links"><a href={socials.linkedin}>LinkedIn ↗</a><a href={socials.facebook}>Facebook ↗</a><a href={socials.github}>GitHub ↗</a></div>
+          <div class="footer-links"><a href={socials.linkedin}>LinkedIn <ArrowIcon /></a><a href={socials.facebook}>Facebook <ArrowIcon /></a><a href={socials.github}>GitHub <ArrowIcon /></a></div>
         </div>
         <div class="footer-bottom"><span>© {new Date().getFullYear()} Khalil Nooh</span><span>Built with curiosity. Made in Malaysia.</span><div><a href="/rss.xml">RSS</a> / <a href="/search/">Search the site</a></div></div>
       </footer>

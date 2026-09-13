@@ -1,4 +1,5 @@
 ---
+import ArrowIcon from "@components/ArrowIcon.astro";
 import ClayCard from "@components/ClayCard.astro";
 import VideoPreview from "@components/VideoPreview.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -14,7 +15,7 @@ const coverage = [...featuredCoverage, ...press.slice(2).sort((a, b) => Number(b
   <div class="section-heading media-coverage-heading" id="coverage"><div><p class="eyebrow">Published perspectives</p><h2>In print &amp; online.</h2></div></div>
   <ClayCard tone="plain" class="filter-panel"><div class="filter-row"><button type="button" data-media-filter="all" aria-pressed="true">All</button>{sources.map(source => <button type="button" data-media-source={source} aria-pressed="false">{source}</button>)}</div><p class="filter-summary" data-media-count aria-live="polite">{press.length} media items shown</p></ClayCard>
   <ClayCard tone="plain" class="empty-state" data-empty-state hidden><h2>No matching coverage</h2><p>Choose All to see every publication.</p></ClayCard>
-  <section class="grid two">{coverage.map(item => <ClayCard class="media-item" data-source={item.publisher} data-enter><div class="press-publisher"><span>{item.publisher}</span><small>{item.category} / {item.year}</small></div><h2>{item.title}</h2><p>{item.summary}</p><div class="tag-row"><span class="tag">{item.topic}</span></div><a class="button" href={item.url}>{item.category === "Video interview" ? "Watch at" : "Read at"} {item.publisher} ↗</a></ClayCard>)}</section>
+  <section class="grid two">{coverage.map(item => <ClayCard class="media-item" data-source={item.publisher} data-enter><div class="press-publisher"><span>{item.publisher}</span><small>{item.category} / {item.year}</small></div><h2>{item.title}</h2><p>{item.summary}</p><div class="tag-row"><span class="tag">{item.topic}</span></div><a class="button" href={item.url}>{item.category === "Video interview" ? "Watch at" : "Read at"} {item.publisher} <ArrowIcon /></a></ClayCard>)}</section>
   <script>
     const mediaItems = [...document.querySelectorAll(".media-item")];
     const mediaCount = document.querySelector("[data-media-count]");

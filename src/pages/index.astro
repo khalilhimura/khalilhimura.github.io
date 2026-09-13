@@ -1,4 +1,5 @@
 ---
+import ArrowIcon from "@components/ArrowIcon.astro";
 import { portrait } from "../data/images";
 import VideoPreview from "@components/VideoPreview.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -26,7 +27,7 @@ const conversationPublishers = [
       <p class="eyebrow">Builder. Educator. Perpetually curious.</p>
       <h1 id="hero-title">Curiosity is<br />how I build.</h1>
       <p class="hero-intro">I'm Khalil Nooh. I build AI systems, write about independent work, and help people turn what they know into what they can create.</p>
-      <div class="hero-actions"><a class="button primary" href="#current-work">Explore my work <span aria-hidden="true">↗</span></a><a class="text-link" href="/profile/">A little about me <span aria-hidden="true">→</span></a></div>
+      <div class="hero-actions"><a class="button primary" href="#current-work">Explore my work <span aria-hidden="true"><ArrowIcon /></span></a><a class="text-link" href="/profile/">A little about me <span aria-hidden="true"><ArrowIcon direction="right" /></span></a></div>
       <p class="hero-note">From building MaLLaM at Mesolitica to <a href="https://thefutureissolo.com/">The Future Is Solo</a>.</p>
     </div>
     <figure class="hero-portrait">
@@ -35,40 +36,40 @@ const conversationPublishers = [
     </figure>
   </section>
   <div class="press-strip" aria-label="Selected publications">
-    <div class="press-strip-heading"><span class="eyebrow">In the conversation</span><a class="text-link" href="/media/">Explore all {press.length} features <span aria-hidden="true">↗</span></a></div>
+    <div class="press-strip-heading"><span class="eyebrow">In the conversation</span><a class="text-link" href="/media/">Explore all {press.length} features <span aria-hidden="true"><ArrowIcon /></span></a></div>
     <div class="publisher-grid">{conversationPublishers.map(publisher => (
       <a class={`publisher-wordmark publisher-${publisher.style}`} href={publisher.url} aria-label={`Read coverage at ${publisher.name}`}><span>{publisher.label}</span>{publisher.detail && <small>{publisher.detail}</small>}</a>
     ))}</div>
   </div>
   <section class="home-section" id="current-work">
-    <div class="section-heading"><div><p class="eyebrow">What I'm working on</p><h2>A thought. A book. A practice.</h2></div><a class="text-link" href="/portfolio/">Full portfolio <span aria-hidden="true">→</span></a></div>
+    <div class="section-heading"><div><p class="eyebrow">What I'm working on</p><h2>A thought. A book. A practice.</h2></div><a class="text-link" href="/portfolio/">Full portfolio <span aria-hidden="true"><ArrowIcon direction="right" /></span></a></div>
     <div class="current-work-grid">
       <a class="work-feature" href={currentWork[0].url} data-enter>
-        <div class="work-heading"><span class="eyebrow">{currentWork[0].kind}</span><span class="link-arrow" aria-hidden="true">↗</span></div>
+        <div class="work-heading"><span class="eyebrow">{currentWork[0].kind}</span><span class="link-arrow" aria-hidden="true"><ArrowIcon /></span></div>
         <h3>The Future<br />Is Solo<span class="accent-period">.</span></h3><p>{currentWork[0].description}</p>
-        <div class="work-bottom"><span>{currentWork[0].action}</span><span aria-hidden="true">→</span></div>
+        <div class="work-bottom"><span>{currentWork[0].action}</span><span aria-hidden="true"><ArrowIcon direction="right" /></span></div>
       </a>
       <div class="work-companions">{currentWork.slice(1).map((work) => (
         <a class="work-companion" href={work.url} data-enter>
-          <div class="work-heading"><span class="eyebrow">{work.kind}</span><span class="link-arrow" aria-hidden="true">↗</span></div>
+          <div class="work-heading"><span class="eyebrow">{work.kind}</span><span class="link-arrow" aria-hidden="true"><ArrowIcon /></span></div>
           <h3>{work.title}</h3><p>{work.description}</p>
-          <div class="work-bottom"><span>{work.action} <span aria-hidden="true">→</span></span><small>{work.detail}</small></div>
+          <div class="work-bottom"><span>{work.action} <span aria-hidden="true"><ArrowIcon direction="right" /></span></span><small>{work.detail}</small></div>
         </a>
       ))}</div>
     </div>
   </section>
   <section class="home-section" id="writing">
-    <div class="section-heading"><div><p class="eyebrow">Selected writing</p><h2>Thinking out loud.<br />Building as I go.</h2></div><a class="text-link" href="/blog/">More writing <span aria-hidden="true">→</span></a></div>
+    <div class="section-heading"><div><p class="eyebrow">Selected writing</p><h2>Thinking out loud.<br />Building as I go.</h2></div><a class="text-link" href="/blog/">More writing <span aria-hidden="true"><ArrowIcon direction="right" /></span></a></div>
     <SelectedWriting />
-    <p class="social-note">The conversation continues on <a href={socials.linkedin}>LinkedIn <span aria-hidden="true">↗</span></a> and <a href={socials.facebook}>Facebook <span aria-hidden="true">↗</span></a>.</p>
+    <p class="social-note">The conversation continues on <a href={socials.linkedin}>LinkedIn <span aria-hidden="true"><ArrowIcon /></span></a> and <a href={socials.facebook}>Facebook <span aria-hidden="true"><ArrowIcon /></span></a>.</p>
   </section>
   <div class="home-section"><VideoPreview /></div>
   <section class="about-preview home-section" aria-labelledby="about-heading">
-    <div><p class="eyebrow">The thread through it all</p><h2 id="about-heading">More capable people.<br />More possible futures.</h2><a class="text-link" href="/profile/">The longer story <span aria-hidden="true">→</span></a></div>
+    <div><p class="eyebrow">The thread through it all</p><h2 id="about-heading">More capable people.<br />More possible futures.</h2><a class="text-link" href="/profile/">The longer story <span aria-hidden="true"><ArrowIcon direction="right" /></span></a></div>
     <div class="about-copy"><p>At Mesolitica, we worked on a simple conviction: AI should understand the people who use it. That meant building MaLLaM around Malaysian languages, context, and culture.</p><p>Today, I'm asking a related question: what could you build if you had the tools, the confidence, and the systems to act on your own ideas?</p><p>That's the work behind The Future Is Solo. I call the person doing it a <strong>Solo Systems Architect</strong>. The starting point is curiosity. The next step is making something real.</p></div>
   </section>
   <section class="home-section" id="press">
-    <div class="section-heading"><div><p class="eyebrow">In the media</p><h2>A few outside perspectives.</h2></div><a class="text-link" href="/media/">All coverage <span aria-hidden="true">→</span></a></div>
-    <div class="press-list">{press.slice(0,3).map((item) => (<a class="press-row" href={item.url} data-enter><div class="press-publisher">{item.publisher}<small>{item.category} / {item.year}</small></div><h3>{item.title}</h3><span class="link-arrow" aria-hidden="true">↗</span></a>))}</div>
+    <div class="section-heading"><div><p class="eyebrow">In the media</p><h2>A few outside perspectives.</h2></div><a class="text-link" href="/media/">All coverage <span aria-hidden="true"><ArrowIcon direction="right" /></span></a></div>
+    <div class="press-list">{press.slice(0,3).map((item) => (<a class="press-row" href={item.url} data-enter><div class="press-publisher">{item.publisher}<small>{item.category} / {item.year}</small></div><h3>{item.title}</h3><span class="link-arrow" aria-hidden="true"><ArrowIcon /></span></a>))}</div>
   </section>
 </BaseLayout>

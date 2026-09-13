@@ -1,4 +1,5 @@
 ---
+import ArrowIcon from "@components/ArrowIcon.astro";
 import ClayCard from "@components/ClayCard.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getProjects } from "@lib/content";
@@ -42,6 +43,6 @@ const tones = ["indigo", "mint", "rose"] as const;
   <section class="home-section">
     <div class="section-heading"><div><p class="eyebrow">Building in public</p><h2>The weekly build record.</h2></div></div>
     <p class="lead">A continuing record of TFIS experiments and the Malaysian.ai AI Residency weekly builds: what I tried, what changed, and what came out of it.</p>
-    <a class="text-link" href="https://docs.google.com/presentation/d/1dvbBGs22QvtGogevZ6f5mf8YQE7WDAPBwYlclhTyctI/edit?usp=sharing">Open the experiments &amp; weekly builds ↗</a>
+    <a class="text-link" href="https://docs.google.com/presentation/d/1dvbBGs22QvtGogevZ6f5mf8YQE7WDAPBwYlclhTyctI/edit?usp=sharing">Open the experiments &amp; weekly builds <ArrowIcon /></a>
   </section>
 </BaseLayout>

@@ -61,6 +61,7 @@ nav a:hover, .site-header nav [aria-current="page"] { color: var(--accent); }
 .text-link span, .link-arrow { transition: transform 180ms ease; }
 a:hover > .link-arrow, a:hover .text-link span, .text-link:hover span { transform: translate(2px,-2px); }
 .link-arrow { display: inline-block; font-family: var(--font-sans); font-size: 1.8rem; font-weight: 400; line-height: 1; }
+.arrow-icon { display: inline-block; flex-shrink: 0; vertical-align: -.125em; }
 .home-hero { display: grid; grid-template-columns: 1.12fr 1fr; align-items: center; gap: 80px; padding: 70px 0 52px; }
 .hero-copy > .eyebrow { margin-bottom: 25px; }
 .hero-copy h1 { font-size: clamp(4.3rem, 6.8vw, 6.4rem); line-height: .97; letter-spacing: -.045em; margin-left: -4px; }
