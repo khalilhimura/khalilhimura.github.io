@@ -1,5 +1,5 @@
 ---
-title: "16 million one-person companies in China"
+title: "16 Million One-Person Companies in China"
 source: "Facebook"
 sourceUrl: "https://www.facebook.com/khalil.nooh/posts/2576584499450837"
 publishedAt: 2026-10-16
