@@ -9,7 +9,7 @@ media: []
 crawlStatus: "manual-review"
 ---
 
-For two years, "AI fluency" was a phrase in search of a definition — every workforce report demanded it, but few could say what it looked like in practice. In 2026, Anthropic gave it both a framework and, for the first time, a measurement.
+For two years, "AI fluency" was a phrase in search of a definition — every workforce report demanded it, but few could say what it looked like in practice. In 2025, Anthropic gave it a framework; in early 2026, for the first time, a measurement.
 
 The framework came first. Anthropic Academy's [AI Fluency: Framework & Foundations](https://anthropic.skilljar.com/ai-fluency-framework-foundations) course, developed with Professors Rick Dakan (Ringling College) and Joseph Feller (University College Cork), organizes fluency into the *4D framework* — four interconnected competencies for effective, efficient, ethical, and safe collaboration with AI. **Delegation** is deciding which tasks to hand to AI and which to keep; **Description** is communicating intent clearly enough for the system to act on it; **Discernment** is critically evaluating what comes back; and **Diligence** is taking responsibility for the interaction and its consequences. Anthropic has since released the [full curriculum](https://www.anthropic.com/ai-fluency) under a Creative Commons license so any institution can adapt it, alongside variants for [students and educators](https://www.anthropic.com/news/anthropic-higher-education-initiatives).
 
