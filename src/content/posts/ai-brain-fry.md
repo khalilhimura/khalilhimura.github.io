@@ -9,6 +9,8 @@ media: []
 crawlStatus: "manual-review"
 ---
 
+![Hero: two-panel manga — production flood on the left, founder under cognitive load on the right, title AI BRAIN FRY](/media/ai-brain-fry-2026-10-26.jpg)
+
 **AI INCREASES HOW FAST WE CAN PRODUCE. IT DOES NOT AUTOMATICALLY INCREASE HOW WELL WE CAN DECIDE.**
 
 I have been calling this AI Brain Fry.
