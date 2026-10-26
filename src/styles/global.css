@@ -149,7 +149,7 @@ main > .section-heading:first-child { padding-top: 64px; }
 .offer-block { margin-top: 72px; padding-top: 36px; border-top: 1px solid var(--border); }
 .offer-block > .eyebrow { margin-bottom: 14px; }
 .offer-block h2, .offer-block h3 { font-size: clamp(1.7rem, 2.4vw, 2.2rem); margin-bottom: 16px; }
-.offer-block ul, .offer-block ol { padding-left: 22px; margin: 14px 0 0; }
+.offer-block ul, .offer-block ol { padding-left: 22px; margin: 14px 0 0; list-style: disc; }
 .offer-block li + li { margin-top: 8px; }
 .offer-block p, .offer-block li { font-size: .92rem; }
 .offer-split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px 70px; }
