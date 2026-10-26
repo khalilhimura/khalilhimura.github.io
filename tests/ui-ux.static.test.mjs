@@ -34,10 +34,51 @@ test("homepage leads with current work and verified social sources", async () =>
   assert.match(home, /href="#current-work"/);
   assert.match(home, /id="current-work"/);
   assert.match(home, /<SelectedWriting/);
+  assert.match(home, /<FractionalCaioOffer variant="section"/);
   assert.match(editorial, /https:\/\/thefutureissolo.com\/accumulated-curiosity\//);
   assert.match(editorial, /https:\/\/thefutureissolo.com\/fluency/);
   assert.match(editorial, /https:\/\/www.facebook.com\/khalil.nooh/);
   assert.doesNotMatch(editorial, /augmented-curiosity|facebook.com\/khalilnooh/);
+});
+
+test("fractional CAIO offer is shared by the homepage section and /hire", async () => {
+  const home = await read("src/pages/index.astro");
+  const hire = await read("src/pages/hire/index.astro");
+  const offer = await read("src/components/FractionalCaioOffer.astro");
+  const copy = await read("src/data/fractionalCaio.ts");
+  const nav = await read("src/components/SiteNav.astro");
+  const css = await read("src/styles/global.css");
+
+  assert.match(home, /<FractionalCaioOffer variant="section"/);
+  assert.match(hire, /<FractionalCaioOffer variant="page"/);
+  assert.match(offer, /id="fractional-caio"/);
+  assert.match(offer, /id="book"/);
+  assert.match(offer, /data-hire-form/);
+  assert.match(offer, /name="name"/);
+  assert.match(offer, /name="email"/);
+  assert.match(offer, /name="company"/);
+  assert.match(offer, /name="building"/);
+  assert.match(offer, /name="timezone"/);
+  assert.match(offer, /name="windows"/);
+  assert.match(offer, /name="length"/);
+  assert.match(offer, /name="mode"/);
+  assert.match(offer, /name="preread"/);
+  assert.match(offer, /In person in KL/);
+  assert.match(offer, /value="video"/);
+  assert.doesNotMatch(offer, /<img/);
+  assert.doesNotMatch(offer, /fbq|facebook\.net|gtag\(|googletagmanager/);
+  assert.match(copy, /RM 1,420 \/ hour · minimum/);
+  assert.match(copy, /Invoice before we sit down/);
+  assert.match(copy, /Coach/);
+  assert.match(copy, /Architect/);
+  assert.match(copy, /Govern/);
+  assert.match(copy, /Stress-test/);
+  assert.match(copy, /Transfer/);
+  assert.match(copy, /Exit/);
+  assert.match(copy, /https:\/\/thefutureissolo.com\/caio/);
+  assert.match(nav, /href: "\/hire\/", label: "Hire"/);
+  assert.match(css, /--paper: #fbfbf8/);
+  assert.equal([...css.matchAll(/@import "@fontsource\//g)].length, 7);
 });
 
 test("timeline filters expose active state, result count, and empty state", async () => {

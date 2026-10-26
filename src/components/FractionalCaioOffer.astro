@@ -1,0 +1,163 @@
+---
+import ArrowIcon from "@components/ArrowIcon.astro";
+import { charterUrl, brainFryPath, hireInbox, offerCopy } from "../data/fractionalCaio";
+
+interface Props {
+  variant?: "section" | "page";
+}
+
+const { variant = "section" } = Astro.props;
+const Heading = variant === "page" ? "h1" : "h2";
+const BlockHeading = variant === "page" ? "h2" : "h3";
+const bookHref = "#book";
+---
+
+<section class:list={["offer", variant === "page" ? "offer-page" : "home-section"]} id="fractional-caio" aria-labelledby="offer-heading">
+  <div class="offer-hero">
+    <div>
+      <p class="eyebrow">{offerCopy.eyebrow}</p>
+      <Heading id="offer-heading">{offerCopy.heading}</Heading>
+      <p class="offer-punch">{offerCopy.punch}</p>
+      {variant === "section" && (
+        <a class="text-link offer-page-link" href="/hire/">{offerCopy.pageLink} <span aria-hidden="true"><ArrowIcon direction="right" /></span></a>
+      )}
+    </div>
+    <div class="offer-rate-panel">
+      <p class="offer-rate"><span class="eyebrow">{offerCopy.rateLabel}</span><strong>{offerCopy.rate}</strong></p>
+      <p>{offerCopy.rateSub}</p>
+      <div class="hero-actions">
+        <a class="button primary" href={bookHref}>{offerCopy.bookCta} <span aria-hidden="true"><ArrowIcon /></span></a>
+        <a class="text-link" href={charterUrl}>{offerCopy.charterCta} <span aria-hidden="true"><ArrowIcon /></span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="offer-block" id="offer-fit">
+    <p class="eyebrow">{offerCopy.fitHeading}</p>
+    <div class="offer-split">
+      <div>
+        <BlockHeading>{offerCopy.goodFitTitle}</BlockHeading>
+        <ul>{offerCopy.goodFit.map((item) => <li>{item}</li>)}</ul>
+      </div>
+      <div>
+        <BlockHeading>{offerCopy.notFitTitle}</BlockHeading>
+        <ul>{offerCopy.notFit.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="offer-block" id="offer-meeting">
+    <p class="eyebrow">{offerCopy.meetingHeading}</p>
+    <BlockHeading>A working conversation, billed at the public rate.</BlockHeading>
+    <p>{offerCopy.meetingLead}</p>
+    <div class="offer-math" aria-label="First meeting prices">
+      <p><strong>{offerCopy.hourPrice}</strong></p>
+      <p><strong>{offerCopy.twoHourPrice}</strong></p>
+    </div>
+    <p>You leave with:</p>
+    <ul>{offerCopy.meetingLeavesWith.map((item) => <li>{item}</li>)}</ul>
+    <p>{offerCopy.meetingNotIncluded}</p>
+    <p>{offerCopy.meetingModeNote}</p>
+  </div>
+
+  <div class="offer-block" id="offer-stages">
+    <p class="eyebrow">{offerCopy.stagesHeading}</p>
+    <BlockHeading>{offerCopy.stagesLead}</BlockHeading>
+    <ol class="offer-stages">
+      {offerCopy.stages.map((stage, index) => (
+        <li>
+          <span class="eyebrow">{String(index + 1).padStart(2, "0")}</span>
+          <strong>{stage.name}</strong>
+          <p>{stage.detail}</p>
+        </li>
+      ))}
+    </ol>
+    <p>{offerCopy.stagesFooter}</p>
+  </div>
+
+  <div class="offer-block offer-split" id="offer-authority">
+    <div>
+      <p class="eyebrow">{offerCopy.authorityHeading}</p>
+      <p>{offerCopy.authority}</p>
+      <a class="text-link" href={charterUrl}>{offerCopy.authorityCta} <span aria-hidden="true"><ArrowIcon /></span></a>
+    </div>
+    <div>
+      <p class="eyebrow">{offerCopy.measureHeading}</p>
+      <ul>{offerCopy.measure.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </div>
+
+  <div class="offer-block" id="offer-walk">
+    <p class="eyebrow">{offerCopy.walkHeading}</p>
+    <BlockHeading>When I'd walk.</BlockHeading>
+    <p>{offerCopy.walk}</p>
+  </div>
+
+  <div class="offer-block" id="book">
+    <p class="eyebrow">First meeting</p>
+    <BlockHeading id="book-heading">{offerCopy.bookHeading}</BlockHeading>
+    <p>{offerCopy.bookLead}</p>
+    <form class="offer-form" data-hire-form data-hire-inbox={hireInbox} action={`mailto:${hireInbox}`} method="post" enctype="text/plain" aria-labelledby="book-heading">
+      <div class="field">
+        <label for="hire-name">Name</label>
+        <input class="offer-input" id="hire-name" name="name" type="text" autocomplete="name" maxlength="120" required />
+      </div>
+      <div class="field">
+        <label for="hire-email">Email</label>
+        <input class="offer-input" id="hire-email" name="email" type="email" autocomplete="email" maxlength="120" required />
+      </div>
+      <div class="field field-full">
+        <label for="hire-company">Company / project</label>
+        <input class="offer-input" id="hire-company" name="company" type="text" autocomplete="organization" maxlength="160" />
+      </div>
+      <div class="field field-full">
+        <label for="hire-building">What you're building</label>
+        <textarea class="offer-input" id="hire-building" name="building" rows="3" maxlength="500" required></textarea>
+      </div>
+      <div class="field field-full">
+        <label for="hire-setup">Rough agent / AI setup today <span class="field-optional">optional</span></label>
+        <textarea class="offer-input" id="hire-setup" name="setup" rows="3" maxlength="500"></textarea>
+      </div>
+      <div class="field">
+        <label for="hire-timezone">City / timezone</label>
+        <input class="offer-input" id="hire-timezone" name="timezone" type="text" maxlength="120" placeholder="e.g. Asia/Kuala_Lumpur — KL" required />
+      </div>
+      <div class="field">
+        <label for="hire-windows">Preferred windows</label>
+        <textarea class="offer-input" id="hire-windows" name="windows" rows="3" maxlength="400" placeholder="Three windows that work, or a short note" required></textarea>
+      </div>
+      <fieldset class="field">
+        <legend>Meeting length</legend>
+        <div class="offer-choice">
+          <label><input type="radio" name="length" value="1" required checked /> 1 hour — RM 1,420</label>
+          <label><input type="radio" name="length" value="2" /> 2 hours — RM 2,840</label>
+        </div>
+      </fieldset>
+      <fieldset class="field">
+        <legend>Meeting mode</legend>
+        <div class="offer-choice">
+          <label><input type="radio" name="mode" value="kl" required /> In person in KL</label>
+          <label><input type="radio" name="mode" value="video" /> Video</label>
+        </div>
+      </fieldset>
+      <div class="field field-full">
+        <label for="hire-preread">Anything I should read before we meet <span class="field-optional">optional URL or note</span></label>
+        <textarea class="offer-input" id="hire-preread" name="preread" rows="2" maxlength="400"></textarea>
+      </div>
+      <div class="field field-full offer-form-actions">
+        <button class="button primary" type="submit">{offerCopy.submitLabel}</button>
+        <p class="offer-privacy">{offerCopy.privacyLine}</p>
+        <p class="offer-form-status" data-hire-form-status hidden></p>
+      </div>
+    </form>
+    <noscript>
+      <p>{offerCopy.noscript.replace("{inbox}", hireInbox)} <a href={`mailto:${hireInbox}`}>{hireInbox}</a></p>
+    </noscript>
+  </div>
+
+  <p class="offer-footer">{offerCopy.footer} <a href={charterUrl}>Charter</a> · <a href={brainFryPath}>AI Brain Fry</a></p>
+</section>
+
+<script>
+  import "../scripts/hire-form";
+</script>
