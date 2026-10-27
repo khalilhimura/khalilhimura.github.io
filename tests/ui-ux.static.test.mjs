@@ -46,6 +46,7 @@ test("fractional CAIO offer is shared by the homepage section and /hire", async 
   const hire = await read("src/pages/hire/index.astro");
   const offer = await read("src/components/FractionalCaioOffer.astro");
   const copy = await read("src/data/fractionalCaio.ts");
+  const hireLib = await read("src/lib/hire-form.mjs");
   const nav = await read("src/components/SiteNav.astro");
   const css = await read("src/styles/global.css");
 
@@ -67,6 +68,8 @@ test("fractional CAIO offer is shared by the homepage section and /hire", async 
   assert.match(offer, /value="video"/);
   assert.doesNotMatch(offer, /<img/);
   assert.doesNotMatch(offer, /fbq|facebook\.net|gtag\(|googletagmanager/);
+  assert.match(copy, /export const hireInbox = "audy@mail.grokbot.com"/);
+  assert.match(hireLib, /export const HIRE_INBOX = "audy@mail.grokbot.com"/);
   assert.match(copy, /RM 1,420 \/ hour · minimum/);
   assert.match(copy, /Invoice before we sit down/);
   assert.match(copy, /Coach/);

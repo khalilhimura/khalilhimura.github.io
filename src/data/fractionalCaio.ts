@@ -1,4 +1,5 @@
-export const hireInbox = "khalil.himura+hire@gmail.com";
+/** Audy · AI Familiar's Grok Bot inbox */
+export const hireInbox = "audy@mail.grokbot.com";
 export const charterUrl = "https://thefutureissolo.com/caio";
 export const brainFryPath = "/blog/ai-brain-fry/";
 export const hourlyRateRm = 1420;

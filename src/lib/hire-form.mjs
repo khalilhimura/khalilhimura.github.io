@@ -1,4 +1,5 @@
-export const HIRE_INBOX = "khalil.himura+hire@gmail.com";
+/** Audy · AI Familiar's Grok Bot inbox */
+export const HIRE_INBOX = "audy@mail.grokbot.com";
 export const HOURLY_RATE_RM = 1420;
 
 export function meetingHours(length) {
