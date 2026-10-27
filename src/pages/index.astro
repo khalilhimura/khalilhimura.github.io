@@ -1,5 +1,6 @@
 ---
 import ArrowIcon from "@components/ArrowIcon.astro";
+import FractionalCaioOffer from "@components/FractionalCaioOffer.astro";
 import { portrait } from "../data/images";
 import VideoPreview from "@components/VideoPreview.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -58,6 +59,7 @@ const conversationPublishers = [
       ))}</div>
     </div>
   </section>
+  <FractionalCaioOffer variant="section" />
   <section class="home-section" id="writing">
     <div class="section-heading"><div><p class="eyebrow">Selected writing</p><h2>Thinking out loud.<br />Building as I go.</h2></div><a class="text-link" href="/blog/">More writing <span aria-hidden="true"><ArrowIcon direction="right" /></span></a></div>
     <SelectedWriting />
