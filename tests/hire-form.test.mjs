@@ -35,6 +35,7 @@ test("first-meeting math stays locked to RM 1,420 / hour", () => {
 test("hire mailto names the inbox, rate, and invoice-before-meeting rule", () => {
   const href = buildHireMailto(valid);
   const url = new URL(href);
+  assert.equal(HIRE_INBOX, "audy@mail.grokbot.com");
   assert.equal(url.protocol, "mailto:");
   assert.equal(url.pathname, HIRE_INBOX);
   assert.match(url.searchParams.get("subject"), /Ada Example/);

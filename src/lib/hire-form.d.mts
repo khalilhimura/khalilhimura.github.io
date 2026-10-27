@@ -1,3 +1,4 @@
+/** Audy · AI Familiar's Grok Bot inbox */
 export const HIRE_INBOX: string;
 export const HOURLY_RATE_RM: number;
 export function meetingHours(length: string | number | null | undefined): 1 | 2;
