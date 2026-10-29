@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { test } from "node:test";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
+const asset = (path) => new URL(`../${path}`, import.meta.url);
 
 test("site navigation is simplified and marks the current page", async () => {
   const nav = await read("src/components/SiteNav.astro");
@@ -34,14 +35,89 @@ test("homepage leads with current work and verified social sources", async () =>
   assert.match(home, /href="#current-work"/);
   assert.match(home, /id="current-work"/);
   assert.match(home, /<SelectedWriting/);
-  assert.match(home, /<FractionalCaioOffer variant="section"/);
+  assert.match(home, /<HireBanner/);
+  assert.doesNotMatch(home, /FractionalCaioOffer/);
   assert.match(editorial, /https:\/\/thefutureissolo.com\/accumulated-curiosity\//);
   assert.match(editorial, /https:\/\/thefutureissolo.com\/fluency/);
   assert.match(editorial, /https:\/\/www.facebook.com\/khalil.nooh/);
   assert.doesNotMatch(editorial, /augmented-curiosity|facebook.com\/khalilnooh/);
 });
 
-test("fractional CAIO offer is shared by the homepage section and /hire", async () => {
+test("homepage hire banner sits between current work and writing and links to /hire", async () => {
+  const home = await read("src/pages/index.astro");
+  const banner = await read("src/components/HireBanner.astro");
+  const css = await read("src/styles/global.css");
+  const layout = await read("src/layouts/BaseLayout.astro");
+  const consent = await read("src/components/CookieConsent.astro");
+
+  const currentWorkIdx = home.indexOf('id="current-work"');
+  const bannerIdx = home.indexOf("<HireBanner");
+  const writingIdx = home.indexOf('id="writing"');
+  assert.ok(currentWorkIdx >= 0 && bannerIdx >= 0 && writingIdx >= 0);
+  assert.ok(currentWorkIdx < bannerIdx && bannerIdx < writingIdx);
+
+  assert.match(banner, /id="fractional-caio"/);
+  assert.match(banner, /class="hire-banner/);
+  assert.match(banner, /Fractional Chief AI Officer/);
+  assert.match(banner, /<h2 id="hire-banner-heading">The CAIO who plans to leave\.<\/h2>/);
+  assert.doesNotMatch(banner, /The CAIO who leaves\./);
+  assert.equal([...banner.matchAll(/plans to leave/gi)].length, 1);
+  assert.match(banner, /I measure success by how fast you stop needing me\./);
+  assert.match(banner, /See the offer/);
+  assert.match(banner, /href="\/hire\/"/);
+  assert.match(banner, /charterUrl/);
+  assert.match(banner, /data-stamp-slot/);
+  assert.match(banner, /<picture/);
+  assert.match(banner, /hire-exit-stamp-440\.webp/);
+  assert.match(banner, /hire-exit-stamp-400\.webp/);
+  assert.match(banner, /media="\(max-width: 600px\)"/);
+  assert.match(banner, /class="exit-stamp"/);
+  assert.match(banner, /<img/);
+  assert.doesNotMatch(banner, /exit-stamp-mark|exit-stamp-sub/);
+  assert.doesNotMatch(banner, />EXIT</);
+  assert.doesNotMatch(banner, /RM 1,420|Good fit|Not a fit|Coach|Architect|Govern|Stress-test|Transfer|data-hire-form|When I'd walk|Honest measurement|name="email"|name="length"/);
+  assert.doesNotMatch(banner, /fbq|facebook\.net|gtag\(|googletagmanager|hire-form/);
+  assert.doesNotMatch(home, /fbq|facebook\.net|gtag\(|googletagmanager/);
+  assert.match(banner, /IntersectionObserver/);
+  assert.match(banner, /prefers-reduced-motion/);
+  assert.match(banner, /is-stamped/);
+  assert.doesNotMatch(banner, /@keyframes|animation:/);
+  assert.match(css, /\.hire-banner\s*{/);
+  assert.match(css, /#f15a30/);
+  assert.match(css, /\.hire-banner-cta/);
+  assert.match(css, /\.hire-banner-stamp/);
+  assert.match(css, /@keyframes stamp-slam/);
+  assert.match(css, /@keyframes hire-breath/);
+  assert.match(css, /hire-breath 4s/);
+  assert.match(css, /\.hire-banner\.is-stamped[\s\S]*stamp-slam/);
+  assert.match(css, /\.hire-banner-cta:hover[\s\S]*translateY/);
+  assert.match(css, /\.hire-banner-cta:focus-visible[\s\S]*translateY/);
+  assert.match(css, /\.hire-banner-cta:hover[\s\S]*box-shadow/);
+  assert.doesNotMatch(css, /exit-stamp-mark|exit-stamp-sub/);
+  assert.doesNotMatch(layout, /fbq|facebook\.net|gtag\(|googletagmanager/);
+  assert.doesNotMatch(consent, /fbq|facebook\.net|gtag\(|googletagmanager/);
+});
+
+test("EXIT stamp assets sit under public/media within Pablo's byte budgets", async () => {
+  const webp440 = await stat(asset("public/media/hire-exit-stamp-440.webp"));
+  const webp400 = await stat(asset("public/media/hire-exit-stamp-400.webp"));
+  assert.ok(webp440.size > 0 && webp440.size <= 80_000, `440.webp is ${webp440.size} bytes`);
+  assert.ok(webp400.size > 0 && webp400.size <= 60_000, `400.webp is ${webp400.size} bytes`);
+
+  for (const [file, budget] of [
+    ["public/media/hire-exit-stamp-440.png", 120_000],
+    ["public/media/hire-exit-stamp-400.png", 100_000]
+  ]) {
+    try {
+      const png = await stat(asset(file));
+      assert.ok(png.size > 0 && png.size <= budget, `${file} is ${png.size} bytes`);
+    } catch (error) {
+      assert.equal(error.code, "ENOENT");
+    }
+  }
+});
+
+test("fractional CAIO offer lives on /hire with full booking details", async () => {
   const home = await read("src/pages/index.astro");
   const hire = await read("src/pages/hire/index.astro");
   const offer = await read("src/components/FractionalCaioOffer.astro");
@@ -50,7 +126,7 @@ test("fractional CAIO offer is shared by the homepage section and /hire", async 
   const nav = await read("src/components/SiteNav.astro");
   const css = await read("src/styles/global.css");
 
-  assert.match(home, /<FractionalCaioOffer variant="section"/);
+  assert.doesNotMatch(home, /FractionalCaioOffer/);
   assert.match(hire, /<FractionalCaioOffer variant="page"/);
   assert.match(offer, /id="fractional-caio"/);
   assert.match(offer, /id="book"/);
