@@ -34,14 +34,51 @@ test("homepage leads with current work and verified social sources", async () =>
   assert.match(home, /href="#current-work"/);
   assert.match(home, /id="current-work"/);
   assert.match(home, /<SelectedWriting/);
-  assert.match(home, /<FractionalCaioOffer variant="section"/);
+  assert.match(home, /<HireBanner/);
+  assert.doesNotMatch(home, /FractionalCaioOffer/);
   assert.match(editorial, /https:\/\/thefutureissolo.com\/accumulated-curiosity\//);
   assert.match(editorial, /https:\/\/thefutureissolo.com\/fluency/);
   assert.match(editorial, /https:\/\/www.facebook.com\/khalil.nooh/);
   assert.doesNotMatch(editorial, /augmented-curiosity|facebook.com\/khalilnooh/);
 });
 
-test("fractional CAIO offer is shared by the homepage section and /hire", async () => {
+test("homepage hire banner sits between current work and writing and links to /hire", async () => {
+  const home = await read("src/pages/index.astro");
+  const banner = await read("src/components/HireBanner.astro");
+  const css = await read("src/styles/global.css");
+  const layout = await read("src/layouts/BaseLayout.astro");
+  const consent = await read("src/components/CookieConsent.astro");
+
+  const currentWorkIdx = home.indexOf('id="current-work"');
+  const bannerIdx = home.indexOf("<HireBanner");
+  const writingIdx = home.indexOf('id="writing"');
+  assert.ok(currentWorkIdx >= 0 && bannerIdx >= 0 && writingIdx >= 0);
+  assert.ok(currentWorkIdx < bannerIdx && bannerIdx < writingIdx);
+
+  assert.match(banner, /id="fractional-caio"/);
+  assert.match(banner, /class="hire-banner/);
+  assert.match(banner, /Fractional Chief AI Officer/);
+  assert.match(banner, /The CAIO who plans to leave\./);
+  assert.match(banner, /I measure success by how fast you stop needing me\./);
+  assert.match(banner, /See the offer/);
+  assert.match(banner, /href="\/hire\/"/);
+  assert.match(banner, /charterUrl/);
+  assert.match(banner, /data-stamp-slot/);
+  assert.match(banner, />EXIT</);
+  assert.match(banner, /plans to leave/);
+  assert.doesNotMatch(banner, /RM 1,420|Good fit|Not a fit|Coach|Architect|Govern|Stress-test|Transfer|data-hire-form|When I'd walk|Honest measurement|name="email"|name="length"/);
+  assert.doesNotMatch(banner, /fbq|facebook\.net|gtag\(|googletagmanager|hire-form/);
+  assert.doesNotMatch(home, /fbq|facebook\.net|gtag\(|googletagmanager/);
+  assert.match(css, /\.hire-banner\s*{/);
+  assert.match(css, /#f15a30/);
+  assert.match(css, /\.hire-banner-cta/);
+  assert.match(css, /\.hire-banner-stamp/);
+  assert.doesNotMatch(banner, /@keyframes|animation:/);
+  assert.doesNotMatch(layout, /fbq|facebook\.net|gtag\(|googletagmanager/);
+  assert.doesNotMatch(consent, /fbq|facebook\.net|gtag\(|googletagmanager/);
+});
+
+test("fractional CAIO offer lives on /hire with full booking details", async () => {
   const home = await read("src/pages/index.astro");
   const hire = await read("src/pages/hire/index.astro");
   const offer = await read("src/components/FractionalCaioOffer.astro");
@@ -50,7 +87,7 @@ test("fractional CAIO offer is shared by the homepage section and /hire", async 
   const nav = await read("src/components/SiteNav.astro");
   const css = await read("src/styles/global.css");
 
-  assert.match(home, /<FractionalCaioOffer variant="section"/);
+  assert.doesNotMatch(home, /FractionalCaioOffer/);
   assert.match(hire, /<FractionalCaioOffer variant="page"/);
   assert.match(offer, /id="fractional-caio"/);
   assert.match(offer, /id="book"/);

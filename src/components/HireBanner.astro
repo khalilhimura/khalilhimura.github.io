@@ -1,0 +1,23 @@
+---
+import ArrowIcon from "@components/ArrowIcon.astro";
+import { charterUrl } from "../data/fractionalCaio";
+---
+
+<section class="hire-banner home-section" id="fractional-caio" aria-labelledby="hire-banner-heading">
+  <div class="hire-banner-copy">
+    <p class="eyebrow">Fractional Chief AI Officer</p>
+    <h2 id="hire-banner-heading">The CAIO who plans to leave.</h2>
+    <p class="hire-banner-line">I measure success by how fast you stop needing me.</p>
+    <div class="hero-actions">
+      <a class="button hire-banner-cta" href="/hire/">See the offer <span aria-hidden="true"><ArrowIcon /></span></a>
+      <a class="text-link" href={charterUrl}>Read the full charter <span aria-hidden="true"><ArrowIcon /></span></a>
+    </div>
+  </div>
+  <!-- Art slot: swap .exit-stamp for Pablo's EXIT stamp asset when it lands. -->
+  <figure class="hire-banner-stamp" data-stamp-slot>
+    <div class="exit-stamp" aria-hidden="true">
+      <span class="exit-stamp-mark">EXIT</span>
+      <span class="exit-stamp-sub">plans to leave</span>
+    </div>
+  </figure>
+</section>
