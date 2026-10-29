@@ -58,7 +58,7 @@ test("homepage hire banner sits between current work and writing and links to /h
   assert.match(banner, /id="fractional-caio"/);
   assert.match(banner, /class="hire-banner/);
   assert.match(banner, /Fractional Chief AI Officer/);
-  assert.match(banner, /The CAIO who plans to leave\./);
+  assert.match(banner, /The CAIO who leaves\./);
   assert.match(banner, /I measure success by how fast you stop needing me\./);
   assert.match(banner, /See the offer/);
   assert.match(banner, /href="\/hire\/"/);
