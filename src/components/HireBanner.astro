@@ -6,18 +6,44 @@ import { charterUrl } from "../data/fractionalCaio";
 <section class="hire-banner home-section" id="fractional-caio" aria-labelledby="hire-banner-heading">
   <div class="hire-banner-copy">
     <p class="eyebrow">Fractional Chief AI Officer</p>
-    <h2 id="hire-banner-heading">The CAIO who leaves.</h2>
+    <h2 id="hire-banner-heading">The CAIO who plans to leave.</h2>
     <p class="hire-banner-line">I measure success by how fast you stop needing me.</p>
     <div class="hero-actions">
       <a class="button hire-banner-cta" href="/hire/">See the offer <span aria-hidden="true"><ArrowIcon /></span></a>
       <a class="text-link" href={charterUrl}>Read the full charter <span aria-hidden="true"><ArrowIcon /></span></a>
     </div>
   </div>
-  <!-- Art slot: swap .exit-stamp for Pablo's EXIT stamp asset when it lands. -->
   <figure class="hire-banner-stamp" data-stamp-slot>
-    <div class="exit-stamp" aria-hidden="true">
-      <span class="exit-stamp-mark">EXIT</span>
-      <span class="exit-stamp-sub">plans to leave</span>
-    </div>
+    <picture>
+      <source media="(max-width: 600px)" type="image/webp" srcset="/media/hire-exit-stamp-400.webp" />
+      <source type="image/webp" srcset="/media/hire-exit-stamp-440.webp" />
+      <img
+        class="exit-stamp"
+        src="/media/hire-exit-stamp-440.webp"
+        width="220"
+        height="220"
+        alt="EXIT stamp"
+        decoding="async"
+      />
+    </picture>
   </figure>
 </section>
+
+<script>
+  const banner = document.getElementById("fractional-caio");
+  if (banner instanceof HTMLElement) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      banner.classList.add("is-stamped");
+    } else {
+      const observer = new IntersectionObserver((entries, obs) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("is-stamped");
+          obs.disconnect();
+        }
+      }, { threshold: 0.35 });
+      observer.observe(banner);
+    }
+  }
+</script>
